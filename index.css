@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* DARK MODE (Default - Fallback) */
+  --text-base: 255, 255, 255;
+  /* Pure White */
+  --chart-stroke: rgba(255, 255, 255, 0.5);
+
+  /* TEMPORARY: Reset to simple values for strip-down phase */
+  --glass-surface-color: rgba(30, 35, 45, 0.5);
+  --glass-border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.light-theme {
+  /* LIGHT MODE - DISABLED (Forced to Dark values for contrast) */
+  --text-base: 255, 255, 255;
+  /* Force White */
+  /* --text-base: 15, 23, 42;  <-- Original Dark Text */
+
+  --chart-stroke: rgba(255, 255, 255, 0.5);
+
+  /* Force Dark Glass values even in 'Light Mode' to prevent white bubbles */
+  --glass-surface-color: rgba(30, 35, 45, 0.5);
+  --glass-border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure dark mode class also sets these if explicitly used */
+html.dark,
+:root {
+  --glass-surface-color: rgba(30, 35, 45, 0.5);
+  --glass-border-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background-color: transparent;
+  color: rgba(var(--text-base), 1);
+  /* Text Shadow for Glass Readability */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
+  transition: color 0.5s ease;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--text-base), 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--text-base), 0.2);
+}
+
+/* 
+   STANDARD GLASSMORPHISM (Dark Mode Optimized)
+*/
+/* 
+   APPLE-STYLE GLASSMORPHISM 
+   High transparency, vibrant blur, subtle borders.
+*/
+/* 
+   APPLE-STYLE GLASSMORPHISM + STABILITY
+   High transparency, vibrant blur, subtle borders.
+   Includes hardware acceleration to preventing flickering/disappearing.
+*/
+/* 
+   APPLE-STYLE GLASSMORPHISM + STABILITY (SECRET SAUCE RECIPE)
+   The exact values requested for the "Dark Navy" deep frost look.
+   Combined with hardware acceleration to prevent disappearing.
+*/
+.glass-panel {
+  /* The Tint (Dark Navy) */
+  background-color: rgba(15, 15, 20, 0.45);
+
+  /* The Frost (Blur + Saturation) */
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+
+  /* The Edge (White 0.1) */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Depth */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+
+  /* STABILITY BOOST */
+  /* Forces a new compositing layer to prevent 'disappearing' frost */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: backdrop-filter;
+}
+
+::selection {
+  background: rgba(var(--text-base), 0.2);
+  color: inherit;
+}
