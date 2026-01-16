@@ -27,7 +27,12 @@ export const AuthService = {
   },
 
   loginWithGoogle: async (): Promise<{ user: User | null; error?: string }> => {
-    const { data, error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+    const { data, error } = await supabase.auth.signInWithOAuth({ 
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin
+      }
+    });
     if (error) return { user: null, error: error.message };
     return { user: null }; // OAuth redirects
   },
