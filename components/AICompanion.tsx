@@ -218,9 +218,11 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
         const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GOOGLE_API_KEY || '' });
 
         const baseInstruction = state.systemPrompt || DEFAULT_SYSTEM_PROMPT;
+        const identityContext = `\n\nUSER IDENTITY:\nName: ${state.user?.name || 'User'}\nEmail: ${state.user?.email || 'Unknown'}\nCurrent Date: ${new Date().toLocaleDateString()}\n`;
+        
         // FORCE INJECT PROTOCOL:
         // Even if user customized their prompt, this protocol is appended to ensure UI works.
-        const systemInstruction = `${baseInstruction}\n\n${SUGGESTION_PROTOCOL}\n\nCRITICAL PROTOCOL: Do not ask for verbal confirmation before calling a tool. If the user asks to modify data (add/edit/delete), call the tool immediately. The system will trigger a UI confirmation card automatically.`;
+        const systemInstruction = `${baseInstruction}${identityContext}\n\n${SUGGESTION_PROTOCOL}\n\nCRITICAL PROTOCOL: Do not ask for verbal confirmation before calling a tool. If the user asks to modify data (add/edit/delete), call the tool immediately. The system will trigger a UI confirmation card automatically.`;
 
         chatRef.current = ai.chats.create({
           model: 'gemini-3-flash-preview',

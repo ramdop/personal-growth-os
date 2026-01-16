@@ -77,8 +77,8 @@ body {
    Combined with hardware acceleration to prevent disappearing.
 */
 .glass-panel {
-  /* The Tint (Dark Navy) */
-  background-color: rgba(15, 15, 20, 0.45);
+  /* The Tint (Dark Navy) - Reduced opacity to let blur show through */
+  background-color: rgba(15, 15, 20, 0.25);
 
   /* The Frost (Blur + Saturation) */
   backdrop-filter: blur(32px) saturate(180%);
@@ -89,15 +89,6 @@ body {
 
   /* Depth */
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-
-  /* STABILITY BOOST */
-  /* Forces a new compositing layer to prevent 'disappearing' frost */
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  will-change: backdrop-filter;
 }
 
 ::selection {
