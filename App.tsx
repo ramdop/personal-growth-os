@@ -15,21 +15,35 @@ import { Settings } from './views/Settings';
 import { Auth } from './views/Auth';
 
 const App: React.FC = () => {
-  // 1. Initial Load: Check for active session
-  const [currentUser, setCurrentUser] = useState<User | null>(() => AuthService.getCurrentSession());
-  
-  // 2. Load Data: Based on current user ID
-  const [state, setState] = useState<AppState>(() => loadState(currentUser?.id || null));
-  
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState<AppState>({ user: null, theme: 'dark', logs: [], habits: [], objectives: [], reviews: [], unlockedVisualizations: [], systemPrompt: '' });
   const [currentView, setCurrentView] = useState<View>('dashboard');
+
+  // 1. Initial Load: Check for active session
+  useEffect(() => {
+    const init = async () => {
+      const user = await AuthService.getCurrentSession();
+      setCurrentUser(user);
+
+      const loadedData = await loadState(user?.id || null);
+      setState({ ...loadedData, user });
+      setLoading(false);
+    };
+    init();
+  }, []);
 
   // Reload state whenever the user changes (Login/Logout)
   useEffect(() => {
-    const loadedData = loadState(currentUser?.id || null);
-    setState({
-      ...loadedData,
-      user: currentUser // Ensure the user object is fresh from session
-    });
+    if (loading) return; // Don't trigger during init
+    const fetchData = async () => {
+      const loadedData = await loadState(currentUser?.id || null);
+      setState({
+        ...loadedData,
+        user: currentUser
+      });
+    };
+    fetchData();
   }, [currentUser]);
 
   // Handle HTML Class for Theme
@@ -62,6 +76,15 @@ const App: React.FC = () => {
   };
 
   // RENDER AUTH SCREEN IF NO USER
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+        Loading...
+      </div>
+    );
+  }
+
+  // RENDER AUTH SCREEN IF NO USER
   if (!currentUser) {
     return (
       <>
@@ -85,10 +108,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <Layout 
-      currentView={currentView} 
-      setView={setCurrentView} 
-      theme={state.theme || 'dark'} 
+    <Layout
+      currentView={currentView}
+      setView={setCurrentView}
+      theme={state.theme || 'dark'}
       toggleTheme={() => updateState(s => ({ ...s, theme: s.theme === 'light' ? 'dark' : 'light' }))}
       state={state}
       updateState={updateState}
