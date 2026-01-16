@@ -39,6 +39,7 @@ export const AuthService = {
 
   logout: async () => {
     await supabase.auth.signOut();
+    localStorage.clear(); // Force clear all local data/tokens
   },
 
   getCurrentSession: async (): Promise<User | null> => {

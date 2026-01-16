@@ -2,7 +2,7 @@
 import React from 'react';
 import { Background } from './Background';
 import { View, AppState } from '../types';
-import { Home, PenTool, Target, Calendar, BarChart2, Settings as SettingsIcon, Activity, Sun, Moon } from 'lucide-react';
+import { Home, PenTool, Target, Calendar, BarChart2, Settings as SettingsIcon, Activity, Sun, Moon, LogOut } from 'lucide-react';
 import { AICompanion } from './AICompanion';
 
 interface LayoutProps {
@@ -13,9 +13,10 @@ interface LayoutProps {
   toggleTheme: () => void;
   state: AppState;
   updateState: (updater: (prev: AppState) => AppState) => void;
+  onLogout: () => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, theme, toggleTheme, state, updateState }) => {
+export const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, theme, toggleTheme, state, updateState, onLogout }) => {
   const navItems: { id: View; icon: any; label: string }[] = [
     { id: 'dashboard', icon: Home, label: 'Aligned' },
     { id: 'checkin', icon: PenTool, label: 'Daily' },
@@ -32,7 +33,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, 
 
       {/* Desktop Sidebar / Mobile Bottom Nav */}
       <nav
-        className="fixed bottom-0 left-0 right-0 md:top-0 md:left-0 md:bottom-0 md:w-24 md:border-r border-t md:border-t-0 border-primary/10 glass-panel z-50 flex md:flex-col justify-around md:justify-center md:gap-8 p-4 md:p-6 transition-all"
+        className="fixed bottom-0 left-0 right-0 md:top-0 md:left-0 md:bottom-0 md:w-24 md:border-r border-t md:border-t-0 border-primary/10 glass-panel z-50 flex md:flex-col justify-around md:justify-between p-4 md:p-6 transition-all"
       >
 
         {/* Theme Toggle (Temporarily Disabled for Stability) */}
@@ -44,25 +45,40 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentView, setView, 
         </div>
         */}
 
-        {navItems.map((item) => {
-          const isActive = currentView === item.id;
-          const Icon = item.icon;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setView(item.id)}
-              className={`flex flex-col items-center gap-1 transition-all duration-300 group ${isActive ? 'text-primary scale-110' : 'text-primary/40 hover:text-primary/70'}`}
-            >
-              <div className={`p-2 rounded-xl transition-all ${isActive ? 'bg-primary/10 shadow-lg' : 'group-hover:bg-primary/5'}`}>
-                <Icon size={24} strokeWidth={1.5} />
-              </div>
-              <span className="text-[10px] font-medium tracking-wider md:hidden">{item.label}</span>
-              <span className="hidden md:block text-[10px] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity absolute left-20 bg-glass-surface border border-primary/10 px-2 py-1 rounded backdrop-blur-md whitespace-nowrap text-primary z-50">
-                {item.label}
-              </span>
-            </button>
-          );
-        })}
+        <div className="contents md:flex md:flex-col md:items-center md:gap-8 md:justify-center md:flex-1">
+          {navItems.map((item) => {
+            const isActive = currentView === item.id;
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setView(item.id)}
+                className={`flex flex-col items-center gap-1 transition-all duration-300 group ${isActive ? 'text-primary scale-110' : 'text-primary/40 hover:text-primary/70'}`}
+              >
+                <div className={`p-2 rounded-xl transition-all ${isActive ? 'bg-primary/10 shadow-lg' : 'group-hover:bg-primary/5'}`}>
+                  <Icon size={24} strokeWidth={1.5} />
+                </div>
+                <span className="text-[10px] font-medium tracking-wider md:hidden">{item.label}</span>
+                <span className="hidden md:block text-[10px] font-medium tracking-wider opacity-0 group-hover:opacity-100 transition-opacity absolute left-20 bg-glass-surface border border-primary/10 px-2 py-1 rounded backdrop-blur-md whitespace-nowrap text-primary z-50">
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="hidden md:flex md:flex-col md:items-center md:pb-4">
+           <div className="w-8 h-px bg-primary/10 mb-6" />
+           <button
+            onClick={onLogout}
+            className="flex flex-col items-center gap-1 transition-all duration-300 group text-red-400/60 hover:text-red-500"
+            title="Sign Out"
+          >
+            <div className="p-2 rounded-xl group-hover:bg-red-500/10 transition-all">
+              <LogOut size={24} strokeWidth={1.5} />
+            </div>
+          </button>
+        </div>
 
         {/* Mobile Theme Toggle */}
         {/*

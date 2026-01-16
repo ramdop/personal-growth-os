@@ -25,9 +25,9 @@ export const Settings: React.FC<Props> = ({ state, updateState }) => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (confirm("Sync complete. Ready to disconnect?")) {
-       AuthService.logout();
+       await AuthService.logout();
        window.location.reload(); // Force reload to clear React state and show Auth screen
     }
   };

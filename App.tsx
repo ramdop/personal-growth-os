@@ -70,8 +70,8 @@ const App: React.FC = () => {
     setCurrentUser(user);
   };
 
-  const handleLogout = () => {
-    AuthService.logout();
+  const handleLogout = async () => {
+    await AuthService.logout();
     setCurrentUser(null);
   };
 
@@ -115,6 +115,7 @@ const App: React.FC = () => {
       toggleTheme={() => updateState(s => ({ ...s, theme: s.theme === 'light' ? 'dark' : 'light' }))}
       state={state}
       updateState={updateState}
+      onLogout={handleLogout}
     >
       {renderView()}
     </Layout>
