@@ -13,12 +13,14 @@ import { WeeklyReviewView } from './views/WeeklyReview';
 import { Insights } from './views/Insights';
 import { Settings } from './views/Settings';
 import { Auth } from './views/Auth';
+import { Landing } from './views/Landing';
 import { Privacy } from './views/Privacy';
 import { Terms } from './views/Terms';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showAuth, setShowAuth] = useState(false);
   const [state, setState] = useState<AppState>({ user: null, theme: 'dark', logs: [], habits: [], objectives: [], reviews: [], unlockedVisualizations: [], memories: [], systemPrompt: '' });
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
@@ -91,14 +93,17 @@ const App: React.FC = () => {
     );
   }
 
-  // RENDER AUTH SCREEN IF NO USER
+  // RENDER AUTH SCREEN OR LANDING IF NO USER
   if (!currentUser) {
-    return (
-      <>
-        <Background theme={state.theme || 'dark'} />
-        <Auth onLogin={handleLogin} theme={state.theme} />
-      </>
-    );
+    if (showAuth || window.location.pathname === '/login') {
+      return (
+        <>
+          <Background theme={state.theme || 'dark'} />
+          <Auth onLogin={handleLogin} theme={state.theme} />
+        </>
+      );
+    }
+    return <Landing onLogin={() => setShowAuth(true)} />;
   }
 
   const renderView = () => {
