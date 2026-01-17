@@ -5,7 +5,7 @@ import { exportData } from '../services/storage';
 import { AuthService } from '../services/auth';
 import { DEFAULT_SYSTEM_PROMPT } from '../constants';
 import { GlassCard } from '../components/GlassCard';
-import { Download, Database, LogOut, Sun, Moon, Sparkles, RefreshCw, Save, User as UserIcon } from 'lucide-react';
+import { Download, Database, LogOut, Sun, Moon, Sparkles, RefreshCw, Save, User as UserIcon, BrainCircuit, X } from 'lucide-react';
 
 interface Props {
   state: AppState;
@@ -14,6 +14,11 @@ interface Props {
 
 export const Settings: React.FC<Props> = ({ state, updateState }) => {
   const [promptEdit, setPromptEdit] = useState(state.systemPrompt || DEFAULT_SYSTEM_PROMPT);
+  const [showAllMemories, setShowAllMemories] = useState(false);
+  
+  const memories = state.memories || [];
+  const MEMORY_LIMIT = 10;
+  const visibleMemories = showAllMemories ? memories : memories.slice(0, MEMORY_LIMIT);
 
   const handleClearData = () => {
     if (confirm("CRITICAL WARNING: This will delete ALL local data for this account. This cannot be undone. Are you sure?")) {
@@ -29,6 +34,15 @@ export const Settings: React.FC<Props> = ({ state, updateState }) => {
     if (confirm("Sync complete. Ready to disconnect?")) {
        await AuthService.logout();
        window.location.reload(); // Force reload to clear React state and show Auth screen
+    }
+  };
+
+  const handleDeleteMemory = (id: string, content: string) => {
+    if (confirm(`Forget that "${content}"?`)) {
+      updateState(prev => ({
+        ...prev,
+        memories: (prev.memories || []).filter(m => m.id !== id)
+      }));
     }
   };
 
@@ -121,6 +135,56 @@ export const Settings: React.FC<Props> = ({ state, updateState }) => {
             >
               <RefreshCw size={16} />
             </button>
+          </div>
+        </div>
+      </GlassCard>
+
+      <GlassCard title="Signals Memory">
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+             <BrainCircuit className="text-purple-500 mt-1 shrink-0" size={20} />
+             <div className="text-sm text-muted">
+               Long-term facts Signal has learned about you to provide better context.
+             </div>
+          </div>
+
+          <div className="space-y-2">
+            {visibleMemories.length > 0 ? (
+              <>
+                {visibleMemories.map(memory => (
+                  <div key={memory.id} className="flex items-center justify-between p-3 bg-primary/5 rounded-lg border border-primary/5 group">
+                    <div>
+                      <div className="text-sm text-primary">{memory.content}</div>
+                      <div className="text-[10px] text-muted uppercase tracking-wider mt-0.5">{memory.category} • {new Date(memory.addedAt).toLocaleDateString()}</div>
+                    </div>
+                    <button 
+                      onClick={() => handleDeleteMemory(memory.id, memory.content)}
+                      className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-md opacity-0 group-hover:opacity-100 transition-all"
+                      title="Forget"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+                
+                {memories.length > MEMORY_LIMIT && (
+                  <button 
+                    onClick={() => setShowAllMemories(!showAllMemories)}
+                    className="w-full py-2 text-xs text-muted hover:text-primary hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-center gap-1 mt-2"
+                  >
+                   {showAllMemories ? (
+                     <>Collapse to {MEMORY_LIMIT} items</>
+                   ) : (
+                     <>Show {memories.length - MEMORY_LIMIT} more signals...</>
+                   )}
+                  </button>
+                )}
+              </>
+            ) : (
+               <div className="text-center py-6 text-sm text-muted italic bg-primary/5 rounded-lg border border-dashed border-primary/10">
+                 No active memories. Signal learns as you chat.
+               </div>
+            )}
           </div>
         </div>
       </GlassCard>

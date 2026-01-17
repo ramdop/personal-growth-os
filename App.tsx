@@ -13,11 +13,13 @@ import { WeeklyReviewView } from './views/WeeklyReview';
 import { Insights } from './views/Insights';
 import { Settings } from './views/Settings';
 import { Auth } from './views/Auth';
+import { Privacy } from './views/Privacy';
+import { Terms } from './views/Terms';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [state, setState] = useState<AppState>({ user: null, theme: 'dark', logs: [], habits: [], objectives: [], reviews: [], unlockedVisualizations: [], systemPrompt: '' });
+  const [state, setState] = useState<AppState>({ user: null, theme: 'dark', logs: [], habits: [], objectives: [], reviews: [], unlockedVisualizations: [], memories: [], systemPrompt: '' });
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
   // 1. Initial Load: Check for active session
@@ -74,6 +76,11 @@ const App: React.FC = () => {
     await AuthService.logout();
     setCurrentUser(null);
   };
+
+  // RENDER PUBLIC PAGES (Bypass Auth)
+  const path = window.location.pathname;
+  if (path === '/privacy') return <Privacy />;
+  if (path === '/terms') return <Terms />;
 
   // RENDER AUTH SCREEN IF NO USER
   if (loading) {

@@ -30,7 +30,12 @@ export const AuthService = {
     const { data, error } = await supabase.auth.signInWithOAuth({ 
       provider: 'google',
       options: {
-        redirectTo: window.location.origin
+        redirectTo: window.location.origin,
+        scopes: 'https://www.googleapis.com/auth/calendar',
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       }
     });
     if (error) return { user: null, error: error.message };

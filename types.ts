@@ -2,6 +2,13 @@
 
 export type LogType = 'presence' | 'builder' | 'health' | 'mind' | 'wealth';
 
+export interface Memory {
+  id: string;
+  content: string; 
+  category: 'identity' | 'preference' | 'history' | 'other';
+  addedAt: string; // ISO Date
+}
+
 export interface User {
   id: string;
   email: string;
@@ -71,6 +78,7 @@ export interface AppState {
   reviews: WeeklyReview[];
   unlockedVisualizations: string[]; // IDs of unlocked viz
   systemPrompt: string; // Custom instructions for the AI
+  memories: Memory[]; // Long-term facts about the user
 }
 
 export type View = 'dashboard' | 'checkin' | 'habits' | 'okrs' | 'review' | 'insights' | 'settings';

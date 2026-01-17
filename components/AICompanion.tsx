@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { GoogleGenAI, Type, FunctionDeclaration } from '@google/genai';
 import { AppState, LogType } from '../types';
 import { Compass, X, Send, Activity, Loader2, Terminal, Check, AlertCircle } from 'lucide-react';
-import { DEFAULT_SYSTEM_PROMPT, SUGGESTION_PROTOCOL } from '../constants';
+import { DEFAULT_SYSTEM_PROMPT, SUGGESTION_PROTOCOL, MEMORY_PROTOCOL, CONVERSATIONAL_PROTOCOL, CALENDAR_PROTOCOL } from '../constants';
+import { CalendarService } from '../services/calendar';
 import ReactMarkdown from 'react-markdown';
 
 // --- Tool Declarations ---
@@ -161,6 +162,46 @@ const removeKeyResultDecl: FunctionDeclaration = {
   }
 };
 
+const rememberFactDecl: FunctionDeclaration = {
+  name: 'rememberFact',
+  description: 'Store a lasting memory about the user (e.g., job, age, core values, life events). Use this when the user shares something significant that should be recalled in future sessions. Do not use for trivial things.',
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      fact: { type: Type.STRING, description: 'The specific fact to remember.' },
+      category: { type: Type.STRING, description: 'identity, preference, history, or other' }
+    },
+    required: ['fact', 'category']
+  }
+};
+
+const forgetFactDecl: FunctionDeclaration = {
+  name: 'forgetFact',
+  description: 'Remove a specific memory from long-term storage.',
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      memoryId: { type: Type.STRING, description: 'The ID of the memory to remove.' }
+    },
+    required: ['memoryId']
+  }
+};
+
+const addCalendarEventDecl: FunctionDeclaration = {
+  name: 'addCalendarEvent',
+  description: 'Add an event to the user\'s Google Calendar. CALL THIS IMMEDIATELY if the user asks to schedule something. Do not ask for confirmation textually, the UI will handle it.',
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      title: { type: Type.STRING, description: 'Event title' },
+      startTime: { type: Type.STRING, description: 'ISO 8601 start time (e.g., 2024-02-01T10:00:00)' },
+      endTime: { type: Type.STRING, description: 'ISO 8601 end time' },
+      description: { type: Type.STRING, description: 'Optional description' }
+    },
+    required: ['title', 'startTime', 'endTime']
+  }
+};
+
 interface AICompanionProps {
   state: AppState;
   updateState: (updater: (prev: AppState) => AppState) => void;
@@ -218,11 +259,24 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
         const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GOOGLE_API_KEY || '' });
 
         const baseInstruction = state.systemPrompt || DEFAULT_SYSTEM_PROMPT;
-        const identityContext = `\n\nUSER IDENTITY:\nName: ${state.user?.name || 'User'}\nEmail: ${state.user?.email || 'Unknown'}\nCurrent Date: ${new Date().toLocaleDateString()}\n`;
+        
+        // Prepare context summary
+        const habitCount = state.habits.filter(h => h.active).length;
+        const objectiveCount = state.objectives.filter(o => o.active).length;
+        const lastLog = state.logs.length > 0 ? state.logs[state.logs.length - 1] : null;
+        const lastLogDate = lastLog ? lastLog.date : 'None';
+        const lastMood = lastLog ? lastLog.mood : 'Unknown';
+        
+        // Memory Injection
+        const memoriesList = state.memories && state.memories.length > 0 
+          ? state.memories.map(m => `- [${m.category.toUpperCase()}] ${m.content} (ID: ${m.id})`).join('\n')
+          : "No long-term memories stored yet.";
+
+        const identityContext = `\n\nUSER IDENTITY:\nName: ${state.user?.name || 'User'}\nEmail: ${state.user?.email || 'Unknown'}\nCurrent Date: ${new Date().toLocaleDateString()}\n\nCONTEXT SUMMARY:\nActive Habits: ${habitCount}\nActive Objectives: ${objectiveCount}\nLast Check-in: ${lastLogDate} (Mood: ${lastMood})\n\nSIGNALS MEMORY (LONG-TERM):\n${memoriesList}\n\n${MEMORY_PROTOCOL}\n\n${CONVERSATIONAL_PROTOCOL}\n\n${CALENDAR_PROTOCOL}\n\nNOTE: You have access to the full user state via the 'getAppState' tool. If the user asks about specific habits, logs, or goals, USE THE TOOL to get the details. To store new important facts, use 'rememberFact'.`;
         
         // FORCE INJECT PROTOCOL:
         // Even if user customized their prompt, this protocol is appended to ensure UI works.
-        const systemInstruction = `${baseInstruction}${identityContext}\n\n${SUGGESTION_PROTOCOL}\n\nCRITICAL PROTOCOL: Do not ask for verbal confirmation before calling a tool. If the user asks to modify data (add/edit/delete), call the tool immediately. The system will trigger a UI confirmation card automatically.`;
+        const systemInstruction = `${baseInstruction}${identityContext}\n\n${SUGGESTION_PROTOCOL}\n\nCRITICAL PROTOCOL: Do not ask for verbal confirmation before calling a tool. If the user asks to modify data (add/edit/delete) or shares new important life details (calling for memory storage), call the tool immediately. The system will trigger a UI confirmation card automatically.`;
 
         chatRef.current = ai.chats.create({
           model: 'gemini-3-flash-preview',
@@ -240,7 +294,10 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
                 removeObjectiveDecl,
                 addKeyResultDecl,
                 updateKeyResultDecl,
-                removeKeyResultDecl
+                removeKeyResultDecl,
+                rememberFactDecl,
+                forgetFactDecl,
+                addCalendarEventDecl
               ]
             }]
           }
@@ -262,7 +319,7 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
       }
     };
     initChat();
-  }, [state.systemPrompt]);
+  }, [state.systemPrompt, state.user?.name]);
 
   const executeTool = async (call: any) => {
     const { name, args } = call;
@@ -270,8 +327,8 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
 
     try {
       if (name === 'getAppState') {
-        const raw = localStorage.getItem('pgos_data_v1');
-        return raw ? JSON.parse(raw) : {};
+        // Return the full state directly from props to ensure latest data
+        return state;
       }
 
       if (name === 'logDailyCheckIn') {
@@ -474,6 +531,49 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
         return { status: 'success', message: 'Key Result removed.' };
       }
 
+      if (name === 'rememberFact') {
+        updateState(prev => ({
+          ...prev,
+          memories: [...(prev.memories || []), {
+            id: Date.now().toString(),
+            content: args.fact,
+            category: args.category || 'other',
+            addedAt: new Date().toISOString()
+          }]
+        }));
+        return { status: 'success', message: 'Memory stored.' };
+      }
+
+      if (name === 'forgetFact') {
+        updateState(prev => ({
+          ...prev,
+          memories: (prev.memories || []).filter(m => m.id !== args.memoryId)
+        }));
+        return { status: 'success', message: 'Memory removed.' };
+      }
+
+      if (name === 'addCalendarEvent') {
+        const result = await CalendarService.createEvent({
+          title: args.title,
+          startTime: args.startTime,
+          endTime: args.endTime,
+          description: args.description
+        });
+        
+        if (!result.success && result.error === 'PERMISSION_MISSING') {
+           return { 
+             status: 'error', 
+             message: 'PERMISSION DENIED: I do not have permission to access your calendar yet. Please instruct the user to "Sign out and sign in again" to grant Google Calendar access.' 
+           };
+        }
+        
+        if (!result.success) {
+           return { status: 'error', message: result.error };
+        }
+        
+        return { status: 'success', message: `Event created! ${result.link ? `Link: ${result.link}` : ''}` };
+      }
+
       return { error: 'Unknown tool' };
     } catch (e) {
       console.error(e);
@@ -510,6 +610,14 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
         role: 'model',
         text: responseText,
         suggestions: extractedSuggestions.length > 0 ? extractedSuggestions : undefined
+      }]);
+    } else if (response.functionCalls && response.functionCalls.some((c: any) => c.name === 'rememberFact')) {
+      // SYNTHETIC RESPONSE: If model is silent but proposes a memory, force a text response.
+      setMessages(prev => [...prev, {
+        id: Date.now().toString(),
+        role: 'model',
+        text: "I've drafted a memory card for that detail.",
+        suggestions: undefined
       }]);
     }
 
@@ -703,6 +811,31 @@ export const AICompanion: React.FC<AICompanionProps> = ({ state, updateState }) 
               {args.presenceRep && <span>Presence: Yes</span>}
               {args.win && <span className="col-span-2">Win: {args.win.substring(0, 20)}...</span>}
             </div>
+          </div>
+        );
+      case 'rememberFact':
+        return (
+          <div className="flex flex-col gap-1">
+            <span className="font-medium text-purple-400">Store Memory</span>
+            <span className="text-sm">"{args.fact}"</span>
+            <span className="text-xs text-muted uppercase tracking-wider">{args.category}</span>
+          </div>
+        );
+      case 'forgetFact':
+         return (
+          <div className="flex flex-col gap-1">
+            <span className="font-medium text-red-400">Forget Memory</span>
+            <span className="text-sm">ID: {args.memoryId}</span>
+          </div>
+        );
+      case 'addCalendarEvent':
+        return (
+          <div className="flex flex-col gap-1">
+            <span className="font-medium text-blue-400">Add to Calendar</span>
+            <span className="text-sm font-semibold">{args.title}</span>
+            <span className="text-xs text-muted">
+              {new Date(args.startTime).toLocaleString()} - {new Date(args.endTime).toLocaleTimeString()}
+            </span>
           </div>
         );
       default: return <span>Execute {call.name}</span>;
