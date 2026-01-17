@@ -22,7 +22,7 @@ export const Landing: React.FC<LandingProps> = ({ onLogin }) => {
             <h1 className="text-5xl md:text-7xl font-light tracking-tight text-white mb-6">
               Personal Growth OS
             </h1>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
               A minimal operating system for your life. Filter the noise, clarify intent, and build identity through consistent action.
             </p>
           </div>
@@ -39,20 +39,20 @@ export const Landing: React.FC<LandingProps> = ({ onLogin }) => {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 max-w-5xl w-full text-left">
-           <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
               <Activity className="w-8 h-8 text-blue-400 mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">Habits as Votes</h3>
-              <p className="text-sm text-white/50">Track behavior as votes for your desired identity, not just chores to complete.</p>
+              <p className="text-sm text-white/70">Track behavior as votes for your desired identity, not just chores to complete.</p>
            </div>
-           <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
               <Target className="w-8 h-8 text-emerald-400 mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">Objectives & Key Results</h3>
-              <p className="text-sm text-white/50">Define clear outcomes and measure progress with precision.</p>
+              <p className="text-sm text-white/70">Define clear outcomes and measure progress with precision.</p>
            </div>
-           <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
               <Shield className="w-8 h-8 text-purple-400 mb-4" />
               <h3 className="text-lg font-medium text-white mb-2">Private & Secure</h3>
-              <p className="text-sm text-white/50">Your data is yours. Secure authentication and local-first philosophy.</p>
+              <p className="text-sm text-white/70">Your data is yours. Secure authentication and local-first philosophy.</p>
            </div>
         </div>
 
