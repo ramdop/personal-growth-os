@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GlassCard } from '../components/GlassCard';
 import { AuthService } from '../services/auth';
 import { User } from '../types';
-import { Shield, ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2 } from 'lucide-react';
 
 interface AuthProps {
   onLogin: (user: User) => void;
@@ -72,7 +72,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin, theme }) => {
 
         <div className="flex justify-center mb-6">
           <div className={`p-4 rounded-full bg-primary/5 border border-primary/10 transition-all duration-500 ${isRegistering ? 'rotate-180' : ''}`}>
-             <Shield className="w-12 h-12 text-primary/80" />
+             <img src="/icon.svg" alt="App Icon" className="w-12 h-12" />
           </div>
         </div>
         

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Background } from '../components/Background';
-import { ArrowRight, Shield, Activity, Target } from 'lucide-react';
+import { ArrowRight, Fingerprint, Compass, Lock } from 'lucide-react';
 
 interface LandingProps {
   onLogin: () => void;
@@ -39,18 +39,24 @@ export const Landing: React.FC<LandingProps> = ({ onLogin }) => {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 max-w-5xl w-full text-left">
-           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
-              <Activity className="w-8 h-8 text-blue-400 mb-4" />
+           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md group hover:bg-white/15 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <Fingerprint className="w-6 h-6 text-white/90" strokeWidth={1.5} />
+              </div>
               <h3 className="text-lg font-medium text-white mb-2">Habits as Votes</h3>
               <p className="text-sm text-white/70">Track behavior as votes for your desired identity, not just chores to complete.</p>
            </div>
-           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
-              <Target className="w-8 h-8 text-emerald-400 mb-4" />
+           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md group hover:bg-white/15 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <Compass className="w-6 h-6 text-white/90" strokeWidth={1.5} />
+              </div>
               <h3 className="text-lg font-medium text-white mb-2">Objectives & Key Results</h3>
               <p className="text-sm text-white/70">Define clear outcomes and measure progress with precision.</p>
            </div>
-           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
-              <Shield className="w-8 h-8 text-purple-400 mb-4" />
+           <div className="p-6 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md group hover:bg-white/15 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <Lock className="w-6 h-6 text-white/90" strokeWidth={1.5} />
+              </div>
               <h3 className="text-lg font-medium text-white mb-2">Private & Secure</h3>
               <p className="text-sm text-white/70">Your data is yours. Secure authentication and local-first philosophy.</p>
            </div>
