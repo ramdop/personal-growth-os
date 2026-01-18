@@ -1,5 +1,6 @@
 
 import { User } from '../types';
+import { Capacitor } from '@capacitor/core';
 
 // ==========================================================================
 // PRODUCTION IMPLEMENTATION (SUPABASE)
@@ -27,10 +28,19 @@ export const AuthService = {
   },
 
   loginWithGoogle: async (): Promise<{ user: User | null; error?: string }> => {
+    const isNative = Capacitor.isNativePlatform();
+    const redirectTo = isNative 
+      // PROXY STRATEGY: Bounce via website --> App
+      ? 'https://growthos.you/auth/callback' 
+      : window.location.origin;
+
+    console.log('[Auth] Platform:', isNative ? 'Native' : 'Web');
+    console.log('[Auth] RedirectTo:', redirectTo);
+
     const { data, error } = await supabase.auth.signInWithOAuth({ 
       provider: 'google',
       options: {
-        redirectTo: window.location.origin,
+        redirectTo,
         scopes: 'https://www.googleapis.com/auth/calendar',
         queryParams: {
           access_type: 'offline',
@@ -38,6 +48,7 @@ export const AuthService = {
         },
       }
     });
+
     if (error) return { user: null, error: error.message };
     return { user: null }; // OAuth redirects
   },

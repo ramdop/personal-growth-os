@@ -1,8 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
+import { App as CapacitorApp } from '@capacitor/app';
 import { Background } from './components/Background';
 import { loadState, saveState } from './services/storage';
 import { AuthService } from './services/auth';
+import { supabase } from './services/supabase';
 import { AppState, View, User } from './types';
 import { Layout } from './components/Layout';
 import { Dashboard } from './views/Dashboard';
@@ -16,6 +18,7 @@ import { Auth } from './views/Auth';
 import { Landing } from './views/Landing';
 import { Privacy } from './views/Privacy';
 import { Terms } from './views/Terms';
+import { AuthCallback } from './views/AuthCallback';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -24,7 +27,7 @@ const App: React.FC = () => {
   const [state, setState] = useState<AppState>({ user: null, theme: 'dark', logs: [], habits: [], objectives: [], reviews: [], unlockedVisualizations: [], memories: [], systemPrompt: '' });
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
-  // 1. Initial Load: Check for active session
+  // 1. Initial Load: Check for active session & Handle Deep Links
   useEffect(() => {
     const init = async () => {
       const user = await AuthService.getCurrentSession();
@@ -35,6 +38,51 @@ const App: React.FC = () => {
       setLoading(false);
     };
     init();
+
+    // Listen for Deep Links (OAuth Redirects)
+    CapacitorApp.addListener('appUrlOpen', async (event) => {
+        console.log('[App] Deep Link Received:', event.url);
+        
+        // The URL will look like: com.personalgrowth.os://google-auth#access_token=...&refresh_token=...
+        // We need to parse the fragment manually because Supabase client doesn't see the native URL change.
+        
+        try {
+            const url = new URL(event.url);
+            // Supabase usually puts tokens in the hash (#) but sometimes in search (?) depending on config
+            // We'll check both.
+            const params = new URLSearchParams(url.hash.substring(1)); // Remove '#'
+            const accessToken = params.get('access_token');
+            const refreshToken = params.get('refresh_token');
+
+            if (accessToken && refreshToken) {
+                console.log('[App] Setting session from native url...');
+                const { data, error } = await supabase.auth.setSession({
+                    access_token: accessToken,
+                    refresh_token: refreshToken,
+                });
+                
+                if (data.user) {
+                    console.log('[App] Session set successfully:', data.user.email);
+                    const mappedUser: User = {
+                        id: data.user.id,
+                        email: data.user.email || '',
+                        name: data.user.user_metadata?.name || 'User'
+                    };
+                    setCurrentUser(mappedUser);
+                } else if (error) {
+                    console.error('[App] Failed to set session:', error);
+                }
+            } else {
+                console.log('[App] No tokens found in URL');
+            }
+        } catch (e) {
+            console.error('[App] Failed to parse deep link:', e);
+        }
+    });
+
+    return () => {
+        CapacitorApp.removeAllListeners();
+    };
   }, []);
 
   // Reload state whenever the user changes (Login/Logout)
@@ -83,6 +131,7 @@ const App: React.FC = () => {
   const path = window.location.pathname;
   if (path === '/privacy') return <Privacy />;
   if (path === '/terms') return <Terms />;
+  if (path === '/auth/callback') return <AuthCallback />;
 
   // RENDER AUTH SCREEN IF NO USER
   if (loading) {

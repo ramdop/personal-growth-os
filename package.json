@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/cli": "^8.0.1",
+    "@capacitor/core": "^8.0.1",
+    "@capacitor/ios": "^8.0.1",
     "@google/genai": "^1.35.0",
     "@reduxjs/toolkit": "^2.11.2",
     "@supabase/supabase-js": "^2.90.1",
