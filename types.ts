@@ -1,11 +1,9 @@
-
-
-export type LogType = 'presence' | 'builder' | 'health' | 'mind' | 'wealth';
+export type LogType = "presence" | "builder" | "health" | "mind" | "wealth";
 
 export interface Memory {
   id: string;
-  content: string; 
-  category: 'identity' | 'preference' | 'history' | 'other';
+  content: string;
+  category: "identity" | "preference" | "history" | "other";
   addedAt: string; // ISO Date
 }
 
@@ -25,7 +23,6 @@ export interface DailyLog {
     presence: boolean;
     build: boolean;
     workout: boolean;
-    freedive: boolean;
   };
   reflection: {
     win: string;
@@ -71,7 +68,7 @@ export interface WeeklyReview {
 
 export interface AppState {
   user: User | null; // Replaces isAuthenticated boolean
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   logs: DailyLog[];
   habits: Habit[];
   objectives: Objective[];
@@ -81,4 +78,11 @@ export interface AppState {
   memories: Memory[]; // Long-term facts about the user
 }
 
-export type View = 'dashboard' | 'checkin' | 'habits' | 'okrs' | 'review' | 'insights' | 'settings';
+export type View =
+  | "dashboard"
+  | "checkin"
+  | "habits"
+  | "okrs"
+  | "review"
+  | "insights"
+  | "settings";

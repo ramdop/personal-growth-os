@@ -1,4 +1,3 @@
-
 export const APP_NAME = "Personal Growth OS";
 export const STORAGE_KEY = "pgos_data_v1";
 export const PASSWORD_KEY = "pgos_auth_pass";
@@ -118,7 +117,6 @@ Ask for:
 - Presence rep (yes/no)
 - Build rep (yes/no)
 - Workout rep (yes/no)
-- Freedive rep (yes/no)
 
 Step 3 — Reflection
 Ask for:
@@ -281,7 +279,6 @@ Doctrine:
 Memory should reduce friction, not define identity.
 `;
 
-
 export const CONVERSATIONAL_PROTOCOL = `
 CONVERSATIONAL PRESENCE
 
@@ -310,7 +307,6 @@ Warmth and humanity are encouraged as long as Signal does not:
 - Prescribe direction
 - Override reflection
 `;
-
 
 export const CALENDAR_PROTOCOL = `
 CALENDAR DISCIPLINE
@@ -343,21 +339,22 @@ The calendar is a commitment ledger, not a planning engine.
 
 export const VISUALIZATION_RULES = {
   WEEKLY_AGGREGATES: {
-    id: 'weekly_aggregates',
-    title: 'Weekly Aggregates',
+    id: "weekly_aggregates",
+    title: "Weekly Aggregates",
     daysRequired: 42, // 6 weeks
-    description: "Trends in deep work and reps over time."
+    description: "Trends in deep work and reps over time.",
   },
   HABIT_HEATMAP: {
-    id: 'habit_heatmap',
-    title: 'Habit Consistency',
+    id: "habit_heatmap",
+    title: "Habit Consistency",
     daysRequired: 30,
-    description: "A calendar view of your identity repetition."
+    description: "A calendar view of your identity repetition.",
   },
   ENERGY_OUTPUT: {
-    id: 'energy_output',
-    title: 'Energy vs. Output',
+    id: "energy_output",
+    title: "Energy vs. Output",
     daysRequired: 45,
-    description: "Scatter plot correlating your internal state with external output."
-  }
+    description:
+      "Scatter plot correlating your internal state with external output.",
+  },
 };
