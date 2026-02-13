@@ -21,6 +21,11 @@ interface Props {
   updateState: (updater: (prev: AppState) => AppState) => void;
 }
 
+const CHART_COLORS = {
+  DEEP_WORK: "#60A5FA", // Blue-400
+  CONSISTENCY: "#34D399", // Emerald-400
+};
+
 export const Insights: React.FC<Props> = ({ state, updateState }) => {
   const [justification, setJustification] = useState("");
   const [selectedUnlockId, setSelectedUnlockId] = useState<string | null>(null);
@@ -271,13 +276,13 @@ export const Insights: React.FC<Props> = ({ state, updateState }) => {
                   />
                   <Bar
                     dataKey="deepWork"
-                    fill="#a58e7e"
+                    fill={CHART_COLORS.DEEP_WORK}
                     name="Deep Work (m)"
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="presence"
-                    fill="#7ea586"
+                    fill={CHART_COLORS.CONSISTENCY}
                     name="Presence Reps"
                     radius={[4, 4, 0, 0]}
                   />
@@ -364,7 +369,11 @@ export const Insights: React.FC<Props> = ({ state, updateState }) => {
                     }}
                     itemStyle={{ color: "#rgba(255, 255, 255, 0.8)" }}
                   />
-                  <Scatter name="Days" data={scatterData} fill="#7E9aa5" />
+                  <Scatter
+                    name="Days"
+                    data={scatterData}
+                    fill={CHART_COLORS.DEEP_WORK}
+                  />
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
