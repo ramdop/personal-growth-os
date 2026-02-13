@@ -119,11 +119,17 @@ const App: React.FC = () => {
     }
   }, [state.theme]);
 
-  // Persist state on every change
+  // Persist state with Debounce (1s delay) to prevent excessive writes
   useEffect(() => {
-    if (currentUser) {
+    if (!currentUser) return;
+
+    const handler = setTimeout(() => {
       saveState(state);
-    }
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, [state, currentUser]);
 
   const updateState = (updater: (prev: AppState) => AppState) => {
