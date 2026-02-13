@@ -308,12 +308,12 @@ export const Insights: React.FC<Props> = ({ state, updateState }) => {
                   title={`${day.date}: ${day.count} habits`}
                   className={`w-8 h-8 rounded-sm transition-all hover:scale-110 ${
                     day.count === 0
-                      ? "bg-primary/5"
+                      ? "bg-primary/10"
                       : day.count <= 2
-                      ? "bg-emerald-900/40 dark:bg-emerald-900/40"
+                      ? "bg-emerald-500/40"
                       : day.count <= 4
-                      ? "bg-emerald-600/60"
-                      : "bg-emerald-400/80"
+                      ? "bg-emerald-500/70"
+                      : "bg-emerald-400"
                   }`}
                 />
               ))}
