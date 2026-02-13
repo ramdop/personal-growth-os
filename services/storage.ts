@@ -16,6 +16,8 @@ const DEFAULT_STATE_DATA = {
   unlockedVisualizations: [],
   systemPrompt: DEFAULT_SYSTEM_PROMPT,
   memories: [],
+  guidedSessions: [],
+  journalProgress: {},
 };
 
 export const loadState = async (userId: string | null): Promise<AppState> => {
@@ -54,6 +56,8 @@ export const saveState = async (state: AppState) => {
     unlockedVisualizations: state.unlockedVisualizations,
     systemPrompt: state.systemPrompt,
     memories: state.memories,
+    guidedSessions: state.guidedSessions,
+    journalProgress: state.journalProgress,
   };
 
   await supabase

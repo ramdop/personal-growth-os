@@ -18,6 +18,7 @@ import { Auth } from "./views/Auth";
 import { Landing } from "./views/Landing";
 import { Privacy } from "./views/Privacy";
 import { Terms } from "./views/Terms";
+import { Journal } from "./views/Journal";
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -33,6 +34,8 @@ const App: React.FC = () => {
     unlockedVisualizations: [],
     memories: [],
     systemPrompt: "",
+    guidedSessions: [],
+    journalProgress: {},
   });
   const [currentView, setCurrentView] = useState<View>("dashboard");
 
@@ -194,6 +197,8 @@ const App: React.FC = () => {
         return <Insights state={state} updateState={updateState} />;
       case "settings":
         return <Settings state={state} updateState={updateState} />;
+      case "journal":
+        return <Journal state={state} updateState={updateState} />;
       default:
         return <Dashboard state={state} />;
     }

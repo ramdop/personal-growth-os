@@ -1,0 +1,886 @@
+[
+  {
+    "id": "anxiety-relief",
+    "title": "Anxiety Relief",
+    "description": "Examine your fears and find calm through Stoic objective analysis.",
+    "icon": "🌬️",
+    "prompts": [
+      {
+        "id": "ar-1",
+        "title": "Fear Setting",
+        "question": "What is the worst-case scenario you are currently fearing? Describe it in full detail.",
+        "guidance": "Seneca suggested 'premeditatio malorum'—rehearsing the worst. By naming the fear, you strip it of its power. Once written, ask: could I survive this?"
+      },
+      {
+        "id": "ar-2",
+        "title": "Dichotomy of Control",
+        "question": "What parts of your current worry are strictly within your control, and what parts are not?",
+        "guidance": "Epictetus taught that suffering comes from wanting to control what we cannot. List what you can influence, then release the rest."
+      },
+      {
+        "id": "ar-3",
+        "title": "The View from Above",
+        "question": "Imagine looking at your situation from 10,000 feet. How significant is this worry in the grand arc of your life?",
+        "guidance": "Marcus Aurelius practiced zooming out—seeing himself as a small part of history. This isn't dismissal; it's proportion."
+      },
+      {
+        "id": "ar-4",
+        "title": "Past Evidence",
+        "question": "Think of a time you were deeply anxious about something. What actually happened? How did you handle it?",
+        "guidance": "Your track record of surviving difficulty is 100%. Document your resilience as evidence against catastrophic thinking."
+      },
+      {
+        "id": "ar-5",
+        "title": "The Obstacle Is the Way",
+        "question": "How could this source of anxiety actually become an opportunity for growth?",
+        "guidance": "Marcus Aurelius wrote: 'The impediment to action advances action. What stands in the way becomes the way.' Every obstacle carries a hidden lesson."
+      },
+      {
+        "id": "ar-6",
+        "title": "Present Moment Anchor",
+        "question": "Right now, in this exact moment, are you safe? What is actually happening versus what you are imagining?",
+        "guidance": "Anxiety lives in the future. Seneca reminded us: 'We suffer more in imagination than in reality.' Ground yourself in the present."
+      },
+      {
+        "id": "ar-7",
+        "title": "The Sage's Response",
+        "question": "If the wisest person you know faced your exact situation, how would they respond?",
+        "guidance": "The Stoics often asked how a sage would act. This mental model separates your emotional reaction from rational action."
+      },
+      {
+        "id": "ar-8",
+        "title": "Voluntary Discomfort",
+        "question": "What small, uncomfortable thing could you do today to build tolerance for uncertainty?",
+        "guidance": "Seneca practiced 'voluntary discomfort'—cold baths, simple meals, hard floors—to prove to himself that the feared thing was manageable."
+      },
+      {
+        "id": "ar-9",
+        "title": "Gratitude Amid Chaos",
+        "question": "Even in this anxious state, what three things in your life are genuinely going well?",
+        "guidance": "Gratitude and anxiety cannot occupy the mind simultaneously. Acknowledging what works shifts the balance toward clarity."
+      },
+      {
+        "id": "ar-10",
+        "title": "Evening Reflection",
+        "question": "What did you do well today despite feeling anxious? What would you do differently tomorrow?",
+        "guidance": "Seneca's evening review: 'What bad habit did I curb today? What virtue did I acquire?' Progress, not perfection."
+      }
+    ]
+  },
+  {
+    "id": "safe-space",
+    "title": "Safe Space Visualization",
+    "description": "Construct an inner sanctuary through reflective writing and guided imagery.",
+    "icon": "🏔️",
+    "prompts": [
+      {
+        "id": "ss-1",
+        "title": "The Inner Citadel",
+        "question": "Describe a place—real or imagined—where you feel completely at peace. What does it look, sound, and feel like?",
+        "guidance": "Marcus Aurelius called the mind an 'inner citadel'—a place no external force can breach. Build yours in vivid detail."
+      },
+      {
+        "id": "ss-2",
+        "title": "The Guardian at the Gate",
+        "question": "What thought, memory, or person would you place at the entrance of your safe space to protect it?",
+        "guidance": "Epictetus taught us to guard what enters the mind. Choose your guardian deliberately—it shapes everything inside."
+      },
+      {
+        "id": "ss-3",
+        "title": "Sensory Grounding",
+        "question": "Close your eyes for 30 seconds. Then write: what are 5 things you can sense right now? How do they anchor you?",
+        "guidance": "The Stoics valued present-moment awareness. Sensation is the fastest route out of spiraling thought and into the body."
+      },
+      {
+        "id": "ss-4",
+        "title": "The Refuge of Memory",
+        "question": "Recall a moment in your life when you felt deeply safe. Who was there? What made it feel that way?",
+        "guidance": "Seneca often returned to treasured memories as fuel for resilience. Your past holds blueprints for your peace."
+      },
+      {
+        "id": "ss-5",
+        "title": "Walls of Values",
+        "question": "If your safe space had walls made of your core values, what would those values be? Name three and describe them.",
+        "guidance": "The Stoic virtues—wisdom, courage, temperance, justice—form the strongest walls. No external storm can topple what is built on character."
+      },
+      {
+        "id": "ss-6",
+        "title": "The Sound of Stillness",
+        "question": "What sounds bring you calm? Describe the soundtrack of your inner sanctuary.",
+        "guidance": "Marcus Aurelius wrote from his tent during wars, finding internal silence amid external chaos. Sound can be chosen, not just received."
+      },
+      {
+        "id": "ss-7",
+        "title": "Letting Go at the Door",
+        "question": "What worry, grudge, or obligation would you leave outside the door of your safe space today?",
+        "guidance": "'Some things are in our control and others are not.' Leave what is not yours to carry at the threshold."
+      },
+      {
+        "id": "ss-8",
+        "title": "The View from Within",
+        "question": "Looking outward from your inner citadel, how does the world appear? What changes when seen from safety?",
+        "guidance": "Perspective shifts when we feel secure. The Stoics saw clearly not by ignoring reality, but by viewing it from stable ground."
+      },
+      {
+        "id": "ss-9",
+        "title": "A Letter from Safety",
+        "question": "Write a short note from your 'safe self' to your 'anxious self'. What would the calm version of you say?",
+        "guidance": "Seneca wrote letters to his friend Lucilius as acts of philosophy. Write to yourself with the same care and wisdom."
+      },
+      {
+        "id": "ss-10",
+        "title": "Carrying It With You",
+        "question": "How can you carry a piece of this safe space into your day? Name one concrete practice or reminder.",
+        "guidance": "The inner citadel is portable. Marcus Aurelius ruled an empire while returning to his sanctuary daily. You need only remember it exists."
+      }
+    ]
+  },
+  {
+    "id": "stress-anxiety",
+    "title": "Stress & Anxiety Prompts",
+    "description": "Explore your stressors, reactions, and coping patterns with structured clarity.",
+    "icon": "🧘",
+    "prompts": [
+      {
+        "id": "sa-1",
+        "title": "Stress Inventory",
+        "question": "List every source of stress you are currently carrying. Large and small, name them all.",
+        "guidance": "Making the invisible visible is the first step. Seneca said: 'It is not that we have a short time to live, but that we waste a great deal of it' on unnamed worries."
+      },
+      {
+        "id": "sa-2",
+        "title": "The Body's Message",
+        "question": "Where in your body do you feel stress right now? Describe the physical sensation as precisely as you can.",
+        "guidance": "The Stoics recognized the body-mind connection. Tension held in the jaw, chest, or stomach is information—not weakness."
+      },
+      {
+        "id": "sa-3",
+        "title": "Pattern Recognition",
+        "question": "When you look back at the past month, what situations repeatedly trigger your stress? Is there a pattern?",
+        "guidance": "Epictetus taught that it's not events that disturb us, but our judgments about them. Recognizing the pattern is the first judgment to change."
+      },
+      {
+        "id": "sa-4",
+        "title": "Coping Audit",
+        "question": "How did you cope with stress yesterday? Was it helpful or harmful? Be honest.",
+        "guidance": "The Stoics distinguished between healthy retreat and avoidance. Drinking, doom-scrolling, and overworking are anesthetics, not remedies."
+      },
+      {
+        "id": "sa-5",
+        "title": "The Minimum Viable Day",
+        "question": "If you could only do three things today without guilt, what would they be?",
+        "guidance": "Marcus Aurelius: 'If you seek tranquility, do less. Or more accurately, do what's essential.' Permission to simplify is not laziness."
+      },
+      {
+        "id": "sa-6",
+        "title": "Borrowed Trouble",
+        "question": "How much of your current stress is about something that hasn't happened yet? Separate fact from forecast.",
+        "guidance": "'We suffer more often in imagination than in reality.' —Seneca. Most of what we fear never arrives."
+      },
+      {
+        "id": "sa-7",
+        "title": "Support Map",
+        "question": "Who are the people you can lean on right now? Name them. When did you last reach out?",
+        "guidance": "Even the most independent Stoics valued friendship. Seneca's letters to Lucilius are proof: wisdom is shared, not hoarded."
+      },
+      {
+        "id": "sa-8",
+        "title": "The 10-10-10 Test",
+        "question": "Will this stressor matter in 10 minutes? 10 months? 10 years? Write your answer for each.",
+        "guidance": "Temporal distance reveals true weight. What feels crushing today often becomes a footnote in the story of your life."
+      },
+      {
+        "id": "sa-9",
+        "title": "One Kind Act",
+        "question": "What is one kind thing you could do for yourself today that you normally wouldn't allow?",
+        "guidance": "Self-compassion is not indulgence. The Stoics cared for the body and mind because they were instruments of virtue."
+      },
+      {
+        "id": "sa-10",
+        "title": "Rewriting the Script",
+        "question": "Take your biggest stressor and rewrite the narrative. What if this is happening FOR you, not TO you?",
+        "guidance": "'Choose not to be harmed—and you won't feel harmed. Don't feel harmed—and you haven't been.' —Marcus Aurelius."
+      }
+    ]
+  },
+  {
+    "id": "happiness",
+    "title": "Happiness & Well-Being",
+    "description": "Discover what brings genuine joy, meaning, and emotional wellness.",
+    "icon": "☀️",
+    "prompts": [
+      {
+        "id": "hw-1",
+        "title": "Joy Archaeology",
+        "question": "When was the last time you felt genuinely happy—not excited, but deeply content? Describe the moment.",
+        "guidance": "The Stoics distinguished between pleasure (hedonia) and deep fulfillment (eudaimonia). What you're searching for may already be here."
+      },
+      {
+        "id": "hw-2",
+        "title": "Enough",
+        "question": "In what areas of your life do you already have 'enough'? Where is wealth already present?",
+        "guidance": "'Wealth consists not in having great possessions, but in having few wants.' —Epictetus. Define your enough."
+      },
+      {
+        "id": "hw-3",
+        "title": "Flow State",
+        "question": "What activity makes you lose track of time? When did you last do it?",
+        "guidance": "The Stoics valued 'energeia'—being fully alive in action. Flow is the modern word for this ancient practice."
+      },
+      {
+        "id": "hw-4",
+        "title": "Meaning Over Pleasure",
+        "question": "What gives your life meaning right now? Is it the same thing that gives you pleasure, or different?",
+        "guidance": "Marcus Aurelius found meaning in duty, not comfort. Joy that lasts comes from purpose, not entertainment."
+      },
+      {
+        "id": "hw-5",
+        "title": "The Good Day",
+        "question": "Describe your ideal 'good day' from morning to night. Not a fantasy—a realistic, wonderful day.",
+        "guidance": "Seneca asked us to design days worth living, then live them deliberately. Not someday. This day."
+      },
+      {
+        "id": "hw-6",
+        "title": "Social Nourishment",
+        "question": "Which relationships energize you? Which ones drain you? Be specific about why.",
+        "guidance": "The Stoics valued the right companions. 'Associate with people who are likely to improve you.' —Seneca."
+      },
+      {
+        "id": "hw-7",
+        "title": "Micro-Joys",
+        "question": "List five tiny moments from this week that brought you a flicker of happiness, no matter how small.",
+        "guidance": "Happiness is not a destination—it's a collection of moments noticed. Train your attention toward them."
+      },
+      {
+        "id": "hw-8",
+        "title": "What Would You Miss?",
+        "question": "If you left your current life for a year, what would you miss most? This reveals what you love.",
+        "guidance": "The Stoic practice of negative visualization—imagining loss—paradoxically reveals what already brings us joy."
+      },
+      {
+        "id": "hw-9",
+        "title": "Permission Slip",
+        "question": "What happiness are you postponing until conditions are 'right'? What if you gave yourself permission now?",
+        "guidance": "'True happiness is to enjoy the present, without anxious dependence upon the future.' —Seneca. Begin now."
+      },
+      {
+        "id": "hw-10",
+        "title": "The Eulogy Test",
+        "question": "What would you want people to say about your life? Are you living in alignment with that vision today?",
+        "guidance": "Marcus Aurelius reflected on death not with morbidity, but clarity. Let the end illuminate the path."
+      }
+    ]
+  },
+  {
+    "id": "gratitude",
+    "title": "Gratitude Journal",
+    "description": "Cultivate appreciation through the ancient practice of counting blessings.",
+    "icon": "🙏",
+    "prompts": [
+      {
+        "id": "gr-1",
+        "title": "Morning Thanks",
+        "question": "What is one small thing you are grateful for this morning?",
+        "guidance": "Marcus Aurelius began each day acknowledging the virtues of those around him. Start small: warmth, silence, or breath."
+      },
+      {
+        "id": "gr-2",
+        "title": "The Hidden Gift",
+        "question": "What difficulty from your past are you now grateful for? What did it teach you?",
+        "guidance": "The Stoics saw hardship as a gift from fate—fuel for virtue. 'Fire tests gold, misfortune tests brave people.' —Seneca."
+      },
+      {
+        "id": "gr-3",
+        "title": "People Who Shaped You",
+        "question": "Name someone who positively influenced your life. What specific quality do you admire in them?",
+        "guidance": "Marcus Aurelius dedicated Book I of his Meditations entirely to gratitude for his teachers, family, and mentors."
+      },
+      {
+        "id": "gr-4",
+        "title": "The Ordinary Miracle",
+        "question": "What everyday experience do you usually take for granted that is actually remarkable?",
+        "guidance": "Epictetus said: 'He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has.'"
+      },
+      {
+        "id": "gr-5",
+        "title": "Negative Visualization",
+        "question": "Imagine you lost something you value deeply. How would you feel? Now appreciate that you still have it.",
+        "guidance": "The Stoic technique of 'premeditatio malorum'—imagining loss—paradoxically deepens gratitude for what remains."
+      },
+      {
+        "id": "gr-6",
+        "title": "A Letter Unsent",
+        "question": "Write a short note of thanks to someone who may never know how much they helped you.",
+        "guidance": "Gratitude expressed, even privately, rewires the mind toward abundance. The act of articulating thanks is itself the benefit."
+      },
+      {
+        "id": "gr-7",
+        "title": "Body Gratitude",
+        "question": "What is one thing your body did for you today that you didn't consciously ask it to do?",
+        "guidance": "Marcus Aurelius reflected on the miracle of the body: breathing, healing, sensing—all without effort. Honor the vessel."
+      },
+      {
+        "id": "gr-8",
+        "title": "Abundance Audit",
+        "question": "List ten things you own that someone, somewhere in the world, is praying for right now.",
+        "guidance": "'Do not indulge in dreams of having what you have not, but reckon up the chief of the blessings you do possess.' —Marcus Aurelius."
+      },
+      {
+        "id": "gr-9",
+        "title": "Today's Gift",
+        "question": "If today were given to you as a surprise bonus day, how would you spend it differently?",
+        "guidance": "Seneca urged us to treat each day as a gift: 'Begin at once to live, and count each separate day as a separate life.'"
+      },
+      {
+        "id": "gr-10",
+        "title": "Season of Life",
+        "question": "What is one thing about this specific season of your life that will not last forever?",
+        "guidance": "Impermanence is not cause for grief—it's the source of value. Appreciate what is fleeting while it is here."
+      }
+    ]
+  },
+  {
+    "id": "relationships",
+    "title": "Relationships",
+    "description": "Strengthen connections through reflection on love, conflict, and support.",
+    "icon": "🤝",
+    "prompts": [
+      {
+        "id": "rl-1",
+        "title": "The Mirror",
+        "question": "What quality in someone close to you frustrates you most? Could it be reflecting something in yourself?",
+        "guidance": "Marcus Aurelius: 'Whenever you are about to find fault with someone, ask yourself: What fault of mine most nearly resembles the one I am about to criticize?'"
+      },
+      {
+        "id": "rl-2",
+        "title": "Unspoken Words",
+        "question": "What have you been wanting to say to someone important in your life but haven't? Why?",
+        "guidance": "The Stoics valued honest speech—parrhesia. Withholding truth harms both parties. Write what needs to be said, even if only here."
+      },
+      {
+        "id": "rl-3",
+        "title": "The Inner Circle",
+        "question": "Who are the five people you spend the most time with? How do they influence your character?",
+        "guidance": "'Associate with people who are likely to improve you. Welcome those who you yourself can improve.' —Seneca. Choose your circle with care."
+      },
+      {
+        "id": "rl-4",
+        "title": "Conflict Autopsy",
+        "question": "Think of a recent disagreement. What was the other person's perspective? Can you steelman their position?",
+        "guidance": "Epictetus taught that no one does wrong willingly—they follow their best understanding. Understanding precedes resolution."
+      },
+      {
+        "id": "rl-5",
+        "title": "Love Without Attachment",
+        "question": "How can you love someone deeply while accepting that you cannot control their choices or fate?",
+        "guidance": "The Stoics loved fully but held loosely. Epictetus: 'Never say of anything I have lost it, only I have returned it.'"
+      },
+      {
+        "id": "rl-6",
+        "title": "The Debt of Kindness",
+        "question": "Who has shown you unexpected kindness recently? How did it affect you? Have you acknowledged it?",
+        "guidance": "Seneca wrote an entire treatise on benefits (De Beneficiis). Recognizing kindness strengthens the social fabric."
+      },
+      {
+        "id": "rl-7",
+        "title": "Boundaries as Care",
+        "question": "Where do you need to set a boundary in a relationship? How is setting that boundary an act of love?",
+        "guidance": "Boundaries are not walls—they are architecture. The Stoics maintained dignity in all relationships through clear, fair limits."
+      },
+      {
+        "id": "rl-8",
+        "title": "Forgiveness Practice",
+        "question": "Is there someone you are holding resentment toward? What would it take to release it—for your own peace?",
+        "guidance": "Marcus Aurelius: 'How much more grievous are the consequences of anger than the causes of it.' Forgiveness is self-liberation."
+      },
+      {
+        "id": "rl-9",
+        "title": "The Listener",
+        "question": "When was the last time you listened to someone without planning your response? What did you learn?",
+        "guidance": "Epictetus: 'We have two ears and one mouth so that we can listen twice as much as we speak.' Presence is the highest gift."
+      },
+      {
+        "id": "rl-10",
+        "title": "Legacy of Connection",
+        "question": "What kind of friend, partner, or family member do you want to be remembered as? Are you living that way now?",
+        "guidance": "The Stoics measured character by actions, not intentions. Your relationships are the living record of your values."
+      }
+    ]
+  },
+  {
+    "id": "self-discovery",
+    "title": "Self-Discovery",
+    "description": "Uncover your true identity, values, and life direction through deep inquiry.",
+    "icon": "🔮",
+    "prompts": [
+      {
+        "id": "sd-1",
+        "title": "The Essential Self",
+        "question": "If you stripped away your job title, possessions, and social roles, who are you? Describe yourself in three sentences.",
+        "guidance": "The Stoics distinguished between externals (things outside our control) and our prohairesis—our true choosing self. Find yours."
+      },
+      {
+        "id": "sd-2",
+        "title": "Value Excavation",
+        "question": "What are the three values you would never compromise, even under pressure? When were they last tested?",
+        "guidance": "Epictetus: 'First say to yourself what you would be; and then do what you have to do.' Values precede action."
+      },
+      {
+        "id": "sd-3",
+        "title": "The Unlived Life",
+        "question": "What path did you not take that part of you still wonders about? What does that curiosity tell you?",
+        "guidance": "Marcus Aurelius reflected on choices without regret. The unlived life is a mirror—it shows what you desire, not what you lack."
+      },
+      {
+        "id": "sd-4",
+        "title": "Childhood Echoes",
+        "question": "What did you love doing as a child before the world told you what to value? Is any of that still alive in you?",
+        "guidance": "Before social conditioning, there was natural inclination. The Stoics called it your 'daimon'—your inner guiding spirit."
+      },
+      {
+        "id": "sd-5",
+        "title": "The Mask Inventory",
+        "question": "What masks do you wear in different parts of your life? Which one feels closest to the real you?",
+        "guidance": "Seneca warned against living someone else's life. Authenticity is not rebellion—it's the alignment of inner truth and outer action."
+      },
+      {
+        "id": "sd-6",
+        "title": "Strengths and Shadows",
+        "question": "What is your greatest strength? Now describe its shadow side—how does it sometimes work against you?",
+        "guidance": "Every virtue, taken to excess, becomes a vice. The Stoic path is the middle way: courage without recklessness, wisdom without paralysis."
+      },
+      {
+        "id": "sd-7",
+        "title": "The Question You're Avoiding",
+        "question": "What question about your life are you afraid to answer honestly? Write it here. Then answer it.",
+        "guidance": "'We suffer not from the events in our lives, but from our judgment about them.' Face the question. The answer has been waiting."
+      },
+      {
+        "id": "sd-8",
+        "title": "Influences Audit",
+        "question": "Whose opinions shape your decisions most? Are those the voices you want guiding your life?",
+        "guidance": "Epictetus asked: 'Is it your concern what anyone else thinks?' Choose your influences as carefully as your diet."
+      },
+      {
+        "id": "sd-9",
+        "title": "The Future Self",
+        "question": "Describe the person you want to be in five years. What daily actions bridge the gap between now and then?",
+        "guidance": "The Stoics believed character is built daily, not discovered. Your future self is the sum of today's small choices."
+      },
+      {
+        "id": "sd-10",
+        "title": "What's Your Enough?",
+        "question": "If you achieved everything you're currently striving for, would you be satisfied? What would you want next?",
+        "guidance": "'It is not the man who has too little that is poor, but the one who hankers after more.' —Seneca. Know your ending point."
+      }
+    ]
+  },
+  {
+    "id": "therapy-prep",
+    "title": "Therapy Preparation",
+    "description": "Prepare for and reflect on therapy sessions with structured journaling.",
+    "icon": "📋",
+    "prompts": [
+      {
+        "id": "tp-1",
+        "title": "Session Preview",
+        "question": "What is the most important thing you want to discuss in your next therapy session? Why does it matter right now?",
+        "guidance": "Seneca prepared for every conversation with intention. Therapy is too valuable for improvisation—arrive with clarity."
+      },
+      {
+        "id": "tp-2",
+        "title": "Emotional Weather Report",
+        "question": "Describe your emotional state this week using a weather metaphor. What's the forecast and what caused the current climate?",
+        "guidance": "Naming emotions with precision reduces their grip. The Stoics catalogued their impressions (phantasiai) before responding to them."
+      },
+      {
+        "id": "tp-3",
+        "title": "Session Reflection",
+        "question": "After your last therapy session, what insight stayed with you? What, if anything, did you resist hearing?",
+        "guidance": "Epictetus valued the student who questioned the teacher—not from pride, but from genuine pursuit of truth. Reflect honestly."
+      },
+      {
+        "id": "tp-4",
+        "title": "Progress Check",
+        "question": "What has improved since you started therapy? Be specific—even small changes count.",
+        "guidance": "The Stoics measured progress by character growth, not external results. Even the smallest shift in perception is victory."
+      },
+      {
+        "id": "tp-5",
+        "title": "The Avoided Topic",
+        "question": "What topic do you consistently avoid bringing up in therapy? What makes it hard to discuss?",
+        "guidance": "Seneca: 'The greatest remedy for anger is delay.' The greatest remedy for avoidance is gentle naming. Write it here first."
+      },
+      {
+        "id": "tp-6",
+        "title": "Trigger Map",
+        "question": "What situations or interactions triggered strong emotional reactions this week? Describe the trigger, the emotion, and your response.",
+        "guidance": "'Between stimulus and response there is a space.' Map your triggers to widen that space for future encounters."
+      },
+      {
+        "id": "tp-7",
+        "title": "Homework Check-In",
+        "question": "Did you follow through on any homework or practices from your last session? What got in the way if not?",
+        "guidance": "Epictetus: 'No great thing is created suddenly.' Therapy works between sessions, not just during them. Account for the work."
+      },
+      {
+        "id": "tp-8",
+        "title": "Relationship with Therapist",
+        "question": "How do you feel in the therapeutic relationship itself? Is there anything you wish were different about the dynamic?",
+        "guidance": "The Stoics valued the teacher-student relationship deeply. Honest feedback strengthens the alliance."
+      },
+      {
+        "id": "tp-9",
+        "title": "Core Belief Excavation",
+        "question": "What is a belief about yourself that keeps showing up in therapy? Where did it originate? Is it still true?",
+        "guidance": "Many beliefs are inherited, not chosen. The Stoic practice of 'assent'—choosing what to believe—applies to self-narrative too."
+      },
+      {
+        "id": "tp-10",
+        "title": "Letter to Past Self",
+        "question": "Write a brief letter to the version of you who first walked into therapy. What would you tell them?",
+        "guidance": "Looking back with compassion is itself therapeutic. The Stoics honored the journey: every step, including the first, required courage."
+      }
+    ]
+  },
+  {
+    "id": "cbt-thought-dumps",
+    "title": "CBT Thought Dumps",
+    "description": "Unpack and restructure unhelpful thinking patterns using cognitive tools.",
+    "icon": "🧠",
+    "prompts": [
+      {
+        "id": "cb-1",
+        "title": "Thought Record",
+        "question": "What negative thought kept repeating today? Write it down exactly as it appeared in your mind.",
+        "guidance": "Epictetus: 'It is not things that disturb us, but our judgments about things.' The first step is catching the judgment."
+      },
+      {
+        "id": "cb-2",
+        "title": "Evidence For and Against",
+        "question": "Take that recurring negative thought. What evidence supports it? What evidence contradicts it?",
+        "guidance": "The Stoics practiced rational examination of impressions (phantasiai). Test every thought like a philosopher tests a proposition."
+      },
+      {
+        "id": "cb-3",
+        "title": "Cognitive Distortion Spotter",
+        "question": "Look at your thought. Is it catastrophizing, mind-reading, black-and-white thinking, or something else? Name the pattern.",
+        "guidance": "Naming the distortion is half the battle. Marcus Aurelius: 'Everything we hear is an opinion, not a fact.' Especially our own opinions."
+      },
+      {
+        "id": "cb-4",
+        "title": "The Balanced Alternative",
+        "question": "Rewrite your negative thought into a more balanced, realistic version. Not positive—realistic.",
+        "guidance": "The Stoic goal is not optimism but accuracy. What is the fair, honest assessment of the situation?"
+      },
+      {
+        "id": "cb-5",
+        "title": "Behavioral Experiment",
+        "question": "What could you do today to test whether your negative belief is actually true? Design a small experiment.",
+        "guidance": "Epictetus turned philosophy into practice. Don't just think differently—act differently and observe the result."
+      },
+      {
+        "id": "cb-6",
+        "title": "Downward Arrow",
+        "question": "Take your negative thought and ask 'What would that mean?' Keep asking until you reach the core fear. What is it?",
+        "guidance": "Beneath surface worries lie deeper beliefs. The Stoics pursued root causes: 'Dig within. Within is the wellspring of good.' —Marcus Aurelius."
+      },
+      {
+        "id": "cb-7",
+        "title": "Hot Thought Analysis",
+        "question": "What was the 'hottest' emotional moment of your day? What thought triggered the emotion? Rate its intensity 1-10.",
+        "guidance": "Intensity is information. High heat means the thought is hitting a deep belief. Examine it with curiosity, not judgment."
+      },
+      {
+        "id": "cb-8",
+        "title": "The Friend Test",
+        "question": "If your best friend had this same thought about themselves, what would you say to them?",
+        "guidance": "We are often kinder to others than to ourselves. Apply the same wisdom inward. Seneca: 'Be harsh with yourself at times.'"
+      },
+      {
+        "id": "cb-9",
+        "title": "Should Statements",
+        "question": "Write down three 'I should' statements you carry. Now rewrite each as 'I would prefer to' or 'I choose to.'",
+        "guidance": "'Should' creates tyranny. The Stoics spoke of preferred indifferents—things worth pursuing without being enslaved by them."
+      },
+      {
+        "id": "cb-10",
+        "title": "Weekly Pattern Review",
+        "question": "Look at your week. What thought pattern kept recurring? Is it an old story or something new?",
+        "guidance": "Marcus Aurelius reviewed each day. Weekly review reveals patterns invisible in the moment. Name them to tame them."
+      }
+    ]
+  },
+  {
+    "id": "dream-journal",
+    "title": "Dream & Nightmare Journal",
+    "description": "Process dream content and uncover emotional patterns from your subconscious.",
+    "icon": "🌙",
+    "prompts": [
+      {
+        "id": "dj-1",
+        "title": "Dream Recall",
+        "question": "Describe your most recent dream in as much detail as possible. What happened? Where were you?",
+        "guidance": "The Stoics believed dreams could reveal inner states. Capture the details quickly—dreams fade within minutes of waking."
+      },
+      {
+        "id": "dj-2",
+        "title": "Emotional Residue",
+        "question": "What emotion did you wake up with this morning? Can you trace it to something in your dream?",
+        "guidance": "Marcus Aurelius noted how morning emotions shape the day. The feeling a dream leaves behind is often more important than its content."
+      },
+      {
+        "id": "dj-3",
+        "title": "Recurring Themes",
+        "question": "Have you noticed any recurring elements in your dreams lately—places, people, scenarios? What might they represent?",
+        "guidance": "Repetition is the subconscious knocking. The Stoics valued self-examination: what returns in dreams wants conscious attention."
+      },
+      {
+        "id": "dj-4",
+        "title": "The Nightmare Mirror",
+        "question": "Describe a recent nightmare or disturbing dream. What fear or anxiety might it be reflecting from your waking life?",
+        "guidance": "Nightmares are not enemies—they are messengers from a deeper part of you. Seneca faced his fears in waking life; face yours here."
+      },
+      {
+        "id": "dj-5",
+        "title": "Dream Characters",
+        "question": "Who appeared in your dream? What is your relationship with them? What role did they play?",
+        "guidance": "Dream figures often represent aspects of ourselves. Every character may be a mirror. Examine who showed up and why."
+      },
+      {
+        "id": "dj-6",
+        "title": "Rewrite the Ending",
+        "question": "Take a dream that ended badly or abruptly. Rewrite the ending the way you would have wanted it to go.",
+        "guidance": "This is active imagination—reclaiming agency even in the dreamworld. The Stoics valued mental rehearsal; this is its nocturnal cousin."
+      },
+      {
+        "id": "dj-7",
+        "title": "Symbols and Meaning",
+        "question": "Pick one vivid image from a recent dream. What does it symbolize to you personally?",
+        "guidance": "Universal dream dictionaries miss the point. Your symbols are personal. A door might mean escape to one person and opportunity to another."
+      },
+      {
+        "id": "dj-8",
+        "title": "Sleep Quality Check",
+        "question": "How was your sleep last night? What might have affected your dream experience—stress, screens, food, thoughts?",
+        "guidance": "The Stoics valued the conditions of rest. Marcus Aurelius was deliberate about his evenings. Quality of sleep shapes quality of dreams."
+      },
+      {
+        "id": "dj-9",
+        "title": "Dream vs. Reality",
+        "question": "Has a dream ever influenced a decision you made in real life? Describe what happened.",
+        "guidance": "The boundary between sleeping and waking mind is thinner than we think. Pay attention to what crosses over."
+      },
+      {
+        "id": "dj-10",
+        "title": "Lucid Moment",
+        "question": "Have you ever realized you were dreaming while still in the dream? What did you do? If not, what would you do?",
+        "guidance": "Lucidity in dreams mirrors Stoic awareness in life—stepping back from the stream of experience to observe it. Practice both."
+      }
+    ]
+  },
+  {
+    "id": "productivity",
+    "title": "Deep Work & Focus",
+    "description": "Align your daily tasks with your higher purpose and essential work.",
+    "icon": "🎯",
+    "prompts": [
+      {
+        "id": "pw-1",
+        "title": "The Essential",
+        "question": "If you could only accomplish one thing today, what would make everything else either easier or unnecessary?",
+        "guidance": "Marcus Aurelius: 'Concentrate every minute on doing what's in front of you with precise and genuine seriousness.'"
+      },
+      {
+        "id": "pw-2",
+        "title": "Energy Audit",
+        "question": "Where did most of your energy go yesterday? Was it aligned with what matters most to you?",
+        "guidance": "Seneca warned about 'busyness as laziness'—filling time with trivial motion instead of meaningful work."
+      },
+      {
+        "id": "pw-3",
+        "title": "Memento Mori Task",
+        "question": "If this were your last working day, which task would still feel worth doing?",
+        "guidance": "The urgency of mortality clarifies priorities. Use it not for panic, but for precise selection of what matters."
+      },
+      {
+        "id": "pw-4",
+        "title": "Distraction Inventory",
+        "question": "What pulled your focus away today? Name the top three distractions and their triggers.",
+        "guidance": "Epictetus said: 'No man is free who is not master of himself.' Document patterns to build mastery over your attention."
+      },
+      {
+        "id": "pw-5",
+        "title": "Deep Work Block",
+        "question": "When was your last uninterrupted block of focused work? What conditions made it possible?",
+        "guidance": "Protect your peak hours as sacred. The Stoics guarded their mornings for philosophy; guard yours for your craft."
+      },
+      {
+        "id": "pw-6",
+        "title": "Saying No",
+        "question": "What commitment or obligation do you need to decline or drop to protect your most important work?",
+        "guidance": "'If you seek tranquility, do less. Or more accurately, do what's essential.' — Marcus Aurelius. Subtraction is strategy."
+      },
+      {
+        "id": "pw-7",
+        "title": "The Craftsman",
+        "question": "What skill are you currently building? What deliberate practice did you do for it this week?",
+        "guidance": "The Stoics valued excellence in one's craft (arete). Not fame, not results—the quality of effort itself."
+      },
+      {
+        "id": "pw-8",
+        "title": "Tomorrow's Setup",
+        "question": "What is the single most important action you can prepare tonight to make tomorrow effective?",
+        "guidance": "Seneca's evening practice included preparing the mind for the next day. Remove friction the night before."
+      },
+      {
+        "id": "pw-9",
+        "title": "Process Over Outcome",
+        "question": "Name a goal you're pursuing. Now describe the daily process that leads to it, independent of results.",
+        "guidance": "The Stoics controlled effort, not outcomes. Fall in love with the process and results become inevitable."
+      },
+      {
+        "id": "pw-10",
+        "title": "The Ideal Day",
+        "question": "Describe your ideal productive day from morning to night. How far is today from that ideal?",
+        "guidance": "Not as fantasy, but as blueprint. Marcus Aurelius structured his days with intention. Design yours."
+      }
+    ]
+  },
+  {
+    "id": "emotions",
+    "title": "Emotion Explorer",
+    "description": "Examine specific emotions—fear, sadness, frustration, anger—with Stoic clarity.",
+    "icon": "🎭",
+    "prompts": [
+      {
+        "id": "em-1",
+        "title": "Name the Emotion",
+        "question": "What is the dominant emotion you are feeling right now? Don't use 'fine' or 'okay'—be precise.",
+        "guidance": "The Stoics had a rich vocabulary for inner states. Precision in naming emotion is precision in understanding yourself."
+      },
+      {
+        "id": "em-2",
+        "title": "Fear Excavation",
+        "question": "What are you most afraid of right now? Go deeper than the surface—what is the fear behind the fear?",
+        "guidance": "Seneca: 'We are more often frightened than hurt; and we suffer more often in imagination than in reality.' Name the root."
+      },
+      {
+        "id": "em-3",
+        "title": "Anger Autopsy",
+        "question": "When was the last time you felt angry? What expectation was violated? Was that expectation reasonable?",
+        "guidance": "Seneca's 'On Anger': anger comes from unmet expectations. Examine the expectation before blaming the world."
+      },
+      {
+        "id": "em-4",
+        "title": "Sadness as Teacher",
+        "question": "What is your sadness trying to tell you? If it could speak in full sentences, what would it say?",
+        "guidance": "The Stoics didn't reject emotion—they examined it. Sadness often points to something deeply valued. What is it pointing to?"
+      },
+      {
+        "id": "em-5",
+        "title": "Frustration Decoder",
+        "question": "What situation is frustrating you most right now? Is the frustration about the situation or about your inability to change it?",
+        "guidance": "Epictetus: 'Don't demand that things happen as you wish, but wish that they happen as they do, and you will go on well.'"
+      },
+      {
+        "id": "em-6",
+        "title": "Joy Inventory",
+        "question": "When did you last feel pure, uncomplicated joy? Describe the moment. What was present, and what was absent?",
+        "guidance": "Joy often appears when expectations are dropped. Notice what conditions create it—then create those conditions more often."
+      },
+      {
+        "id": "em-7",
+        "title": "Shame vs. Guilt",
+        "question": "Is there something you feel ashamed of recently? Is the feeling about what you did (guilt) or who you are (shame)?",
+        "guidance": "The Stoics distinguished between correctable actions and immutable identity. Guilt says: I made a mistake. Shame says: I am a mistake. Only one is true."
+      },
+      {
+        "id": "em-8",
+        "title": "Emotional Forecast",
+        "question": "Based on your current emotional state, what kind of day do you expect tomorrow to be? What could shift that forecast?",
+        "guidance": "Emotions forecast behavior. The Stoics intervened at the level of impression—change the forecast by changing the interpretation."
+      },
+      {
+        "id": "em-9",
+        "title": "The Emotion You Avoid",
+        "question": "Which emotion do you have the hardest time sitting with? Why? What happens when you try to just let it be?",
+        "guidance": "Resistance magnifies suffering. Marcus Aurelius: 'Accept the things to which fate binds you.' This includes uncomfortable feelings."
+      },
+      {
+        "id": "em-10",
+        "title": "Emotional Growth",
+        "question": "Compare your emotional responses now to a year ago. Where have you grown? Where do you still struggle?",
+        "guidance": "The Stoic path is measured in emotional maturity—not the absence of feeling, but the quality of response. Honor your progress."
+      }
+    ]
+  },
+  {
+    "id": "love-partnership",
+    "title": "Love & Partnership",
+    "description": "Examine your readiness for love and what kind of partner you truly are.",
+    "icon": "💜",
+    "prompts": [
+      {
+        "id": "lp-1",
+        "title": "The Partner You Are",
+        "question": "Honestly describe yourself as a partner. What do you bring to a relationship? What do you withhold?",
+        "guidance": "Marcus Aurelius began his Meditations by listing what he owed to others. Begin by listing what you offer—and what you guard."
+      },
+      {
+        "id": "lp-2",
+        "title": "Attachment Patterns",
+        "question": "When someone gets close, do you pull them in or push them away? Describe what happens in your body and mind.",
+        "guidance": "Epictetus taught awareness of automatic responses. Attachment patterns are not destiny—they are habits. And habits can be examined."
+      },
+      {
+        "id": "lp-3",
+        "title": "The Ideal Partnership",
+        "question": "Describe your ideal relationship—not the person, but the dynamic. How do you want to feel daily with a partner?",
+        "guidance": "The Stoics focused on character, not appearances. Define the relationship by its quality of interaction, not by a checklist of traits."
+      },
+      {
+        "id": "lp-4",
+        "title": "Past Relationship Autopsy",
+        "question": "What is the most important thing your last relationship (or dating experience) taught you about yourself?",
+        "guidance": "Seneca: 'Difficulties strengthen the mind, as labor does the body.' Every relationship, even the painful ones, is a teacher."
+      },
+      {
+        "id": "lp-5",
+        "title": "The Deal Breaker vs. The Preference",
+        "question": "List your non-negotiables in a partner. Now separate true deal-breakers from mere preferences. Be ruthlessly honest.",
+        "guidance": "The Stoics distinguished between what is essential and what is preferred. Confusing the two creates either loneliness or compromise."
+      },
+      {
+        "id": "lp-6",
+        "title": "Fear of Intimacy",
+        "question": "What scares you most about being truly known by another person? What are you afraid they'll see?",
+        "guidance": "Vulnerability is not weakness—it is the foundation of authentic connection. Seneca shared his deepest fears openly in his letters."
+      },
+      {
+        "id": "lp-7",
+        "title": "Love Languages Audit",
+        "question": "How do you naturally express love? How do you prefer to receive it? Is there a mismatch you've noticed?",
+        "guidance": "Self-knowledge is the basis of good partnership. The Stoics valued 'oikeiosis'—the natural affinity between people. Understand your own wiring first."
+      },
+      {
+        "id": "lp-8",
+        "title": "Wholeness Before Partnership",
+        "question": "What parts of your life are you hoping a partner will 'complete' or fix? Can you address any of those yourself?",
+        "guidance": "Epictetus: 'No man is free who is not master of himself.' A partner should enhance a whole life, not fill an empty one."
+      },
+      {
+        "id": "lp-9",
+        "title": "The Courage to Be Chosen",
+        "question": "Do you believe you deserve love? If hesitation appeared, explore it. Where does that doubt originate?",
+        "guidance": "Self-worth is not arrogance—it is the recognition that you, like all beings, are worthy of connection. The Stoics saw dignity as inherent."
+      },
+      {
+        "id": "lp-10",
+        "title": "A Letter to Your Future Partner",
+        "question": "Write a short letter to your future partner. What do you want them to know about who you are and what you're working on?",
+        "guidance": "Seneca's letters to Lucilius were acts of love disguised as philosophy. Write to someone who doesn't exist yet—with the honesty they deserve."
+      }
+    ]
+  }
+]

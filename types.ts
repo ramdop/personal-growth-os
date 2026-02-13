@@ -66,6 +66,29 @@ export interface WeeklyReview {
   adjustment: string;
 }
 
+export interface GuidedJournalPrompt {
+  id: string;
+  title: string;
+  question: string;
+  guidance: string;
+  detailedGuidance?: string;
+}
+
+export interface GuidedJournal {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  prompts: GuidedJournalPrompt[];
+}
+
+export interface GuidedSession {
+  id: string;
+  journalId: string;
+  date: string; // ISO
+  responses: { promptId: string; response: string }[];
+}
+
 export interface AppState {
   user: User | null; // Replaces isAuthenticated boolean
   theme: "light" | "dark";
@@ -76,6 +99,8 @@ export interface AppState {
   unlockedVisualizations: string[]; // IDs of unlocked viz
   systemPrompt: string; // Custom instructions for the AI
   memories: Memory[]; // Long-term facts about the user
+  guidedSessions: GuidedSession[]; // History of thematic journaling
+  journalProgress: Record<string, number>; // journalId -> totalSessionsCompleted
 }
 
 export type View =
@@ -85,4 +110,5 @@ export type View =
   | "okrs"
   | "review"
   | "insights"
-  | "settings";
+  | "settings"
+  | "journal";
