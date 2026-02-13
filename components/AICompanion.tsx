@@ -280,6 +280,69 @@ const addCalendarEventDecl: FunctionDeclaration = {
   },
 };
 
+const listCalendarEventsDecl: FunctionDeclaration = {
+  name: "listCalendarEvents",
+  description:
+    "List upcoming calendar events to check availability or find events to update/delete.",
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      timeMin: {
+        type: Type.STRING,
+        description: "ISO 8601 start time (default: now)",
+      },
+      timeMax: {
+        type: Type.STRING,
+        description: "ISO 8601 end time (default: 1 week from now)",
+      },
+      maxResults: {
+        type: Type.NUMBER,
+        description: "Max number of events to return",
+      },
+    },
+    required: [],
+  },
+};
+
+const updateCalendarEventDecl: FunctionDeclaration = {
+  name: "updateCalendarEvent",
+  description:
+    "Update an existing calendar event. You typically need to call 'listCalendarEvents' first to get the eventId.",
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      eventId: {
+        type: Type.STRING,
+        description: "The ID of the event to update",
+      },
+      title: { type: Type.STRING, description: "New title" },
+      startTime: {
+        type: Type.STRING,
+        description: "New start time (ISO 8601)",
+      },
+      endTime: { type: Type.STRING, description: "New end time (ISO 8601)" },
+      description: { type: Type.STRING, description: "New description" },
+    },
+    required: ["eventId"],
+  },
+};
+
+const deleteCalendarEventDecl: FunctionDeclaration = {
+  name: "deleteCalendarEvent",
+  description:
+    "Delete a calendar event. You typically need to call 'listCalendarEvents' first to get the eventId.",
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      eventId: {
+        type: Type.STRING,
+        description: "The ID of the event to delete",
+      },
+    },
+    required: ["eventId"],
+  },
+};
+
 interface AICompanionProps {
   state: AppState;
   updateState: (updater: (prev: AppState) => AppState) => void;
@@ -436,6 +499,9 @@ export const AICompanion: React.FC<AICompanionProps> = ({
                   rememberFactDecl,
                   forgetFactDecl,
                   addCalendarEventDecl,
+                  listCalendarEventsDecl,
+                  updateCalendarEventDecl,
+                  deleteCalendarEventDecl,
                 ],
               },
             ],
@@ -798,13 +864,56 @@ export const AICompanion: React.FC<AICompanionProps> = ({
         if (!result.success) {
           return { status: "error", message: result.error };
         }
+        return { status: "success", message: `Event created: ${result.link}` };
+      }
 
-        return {
-          status: "success",
-          message: `Event created! ${
-            result.link ? `Link: ${result.link}` : ""
-          }`,
-        };
+      if (name === "listCalendarEvents") {
+        const now = new Date();
+        const nextWeek = new Date();
+        nextWeek.setDate(now.getDate() + 7);
+
+        const result = await CalendarService.listEvents(
+          args.timeMin || now.toISOString(),
+          args.timeMax || nextWeek.toISOString(),
+          args.maxResults || 10,
+        );
+
+        if (!result.success && result.error === "PERMISSION_MISSING") {
+          return {
+            status: "error",
+            message: "PERMISSION DENIED: Instruct user to sign in again.",
+          };
+        }
+        return result;
+      }
+
+      if (name === "updateCalendarEvent") {
+        const result = await CalendarService.updateEvent(args.eventId, {
+          title: args.title,
+          startTime: args.startTime,
+          endTime: args.endTime,
+          description: args.description,
+        });
+
+        if (!result.success && result.error === "PERMISSION_MISSING") {
+          return {
+            status: "error",
+            message: "PERMISSION DENIED: Instruct user to sign in again.",
+          };
+        }
+        return result;
+      }
+
+      if (name === "deleteCalendarEvent") {
+        const result = await CalendarService.deleteEvent(args.eventId);
+
+        if (!result.success && result.error === "PERMISSION_MISSING") {
+          return {
+            status: "error",
+            message: "PERMISSION DENIED: Instruct user to sign in again.",
+          };
+        }
+        return { status: "success", message: "Event deleted." };
       }
 
       return { error: "Unknown tool" };
