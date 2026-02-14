@@ -496,12 +496,14 @@ export const AICompanion: React.FC<AICompanionProps> = ({
                 .join(", ") || "None yet"
             : "None yet";
         const now = new Date();
-        const startOfYear = new Date(now.getFullYear(), 0, 1);
+        // ISO week number — matches Journal.tsx exactly
+        const d = new Date(
+          Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()),
+        );
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
         const weekNumber = Math.ceil(
-          ((now.getTime() - startOfYear.getTime()) / 86400000 +
-            startOfYear.getDay() +
-            1) /
-            7,
+          ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7,
         );
         const currentTheme =
           (stoicThemes as Record<string, string>)[String(weekNumber)] ||
