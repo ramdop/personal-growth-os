@@ -17,8 +17,12 @@ import {
   MEMORY_PROTOCOL,
   CONVERSATIONAL_PROTOCOL,
   CALENDAR_PROTOCOL,
+  JOURNAL_PROTOCOL,
 } from "../constants";
 import { CalendarService } from "../services/calendar";
+import stoicContent from "../data/stoic-content.json";
+import guidedJournals from "../data/guided-journals.json";
+import stoicThemes from "../data/stoic-themes.json";
 import ReactMarkdown from "react-markdown";
 
 // --- Tool Declarations ---
@@ -261,6 +265,13 @@ const forgetFactDecl: FunctionDeclaration = {
   },
 };
 
+const getJournalContextDecl: FunctionDeclaration = {
+  name: "getJournalContext",
+  description:
+    "Get journal context: today's daily Stoic prompt, available guided journals with completion progress, and recent guided session history. Use this when the user asks about journals, prompts, or journaling progress.",
+  parameters: { type: Type.OBJECT, properties: {} },
+};
+
 const addCalendarEventDecl: FunctionDeclaration = {
   name: "addCalendarEvent",
   description:
@@ -468,11 +479,39 @@ export const AICompanion: React.FC<AICompanionProps> = ({
                 .join("\n")
             : "No long-term memories stored yet.";
 
+        // Journal context summary
+        const sessionCount = state.guidedSessions?.length || 0;
+        const journalProgressSummary =
+          state.journalProgress && Object.keys(state.journalProgress).length > 0
+            ? Object.entries(state.journalProgress)
+                .map(([jId, count]) => {
+                  const journal = (guidedJournals as any[]).find(
+                    (j: any) => j.id === jId,
+                  );
+                  return journal
+                    ? `${journal.title}: ${count} session(s)`
+                    : null;
+                })
+                .filter(Boolean)
+                .join(", ") || "None yet"
+            : "None yet";
+        const now = new Date();
+        const startOfYear = new Date(now.getFullYear(), 0, 1);
+        const weekNumber = Math.ceil(
+          ((now.getTime() - startOfYear.getTime()) / 86400000 +
+            startOfYear.getDay() +
+            1) /
+            7,
+        );
+        const currentTheme =
+          (stoicThemes as Record<string, string>)[String(weekNumber)] ||
+          "Reflection";
+
         const identityContext = `\n\nUSER IDENTITY:\nName: ${
           state.user?.name || "User"
         }\nEmail: ${
           state.user?.email || "Unknown"
-        }\nCurrent Date: ${new Date().toLocaleDateString()}\n\nCONTEXT SUMMARY:\nActive Habits: ${habitCount}\nActive Objectives: ${objectiveCount}\nLast Check-in: ${lastLogDate} (Mood: ${lastMood})\n\nSIGNALS MEMORY (LONG-TERM):\n${memoriesList}\n\n${MEMORY_PROTOCOL}\n\n${CONVERSATIONAL_PROTOCOL}\n\n${CALENDAR_PROTOCOL}\n\nNOTE: You have access to the full user state via the 'getAppState' tool. If the user asks about specific habits, logs, or goals, USE THE TOOL to get the details. To store new important facts, use 'rememberFact'.`;
+        }\nCurrent Date: ${new Date().toLocaleDateString()}\n\nCONTEXT SUMMARY:\nActive Habits: ${habitCount}\nActive Objectives: ${objectiveCount}\nLast Check-in: ${lastLogDate} (Mood: ${lastMood})\n\nJOURNAL CONTEXT:\nGuided Sessions Completed: ${sessionCount}\nJournal Progress: ${journalProgressSummary}\nThis Week's Theme: Week ${weekNumber} — ${currentTheme}\n\nSIGNALS MEMORY (LONG-TERM):\n${memoriesList}\n\n${MEMORY_PROTOCOL}\n\n${CONVERSATIONAL_PROTOCOL}\n\n${CALENDAR_PROTOCOL}\n\n${JOURNAL_PROTOCOL}\n\nNOTE: You have access to the full user state via the 'getAppState' tool. If the user asks about specific habits, logs, or goals, USE THE TOOL to get the details. To store new important facts, use 'rememberFact'. For journal details, use 'getJournalContext'.`;
 
         // FORCE INJECT PROTOCOL:
         // Even if user customized their prompt, this protocol is appended to ensure UI works.
@@ -502,6 +541,7 @@ export const AICompanion: React.FC<AICompanionProps> = ({
                   listCalendarEventsDecl,
                   updateCalendarEventDecl,
                   deleteCalendarEventDecl,
+                  getJournalContextDecl,
                 ],
               },
             ],
@@ -542,6 +582,60 @@ export const AICompanion: React.FC<AICompanionProps> = ({
       if (name === "getAppState") {
         // Return the full state directly from props to ensure latest data
         return state;
+      }
+
+      if (name === "getJournalContext") {
+        // Today's daily Stoic entry
+        const todayStr = new Date().toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        const todayEntry = (stoicContent as any[]).find(
+          (e: any) => e.date === todayStr,
+        );
+        const dailyStoic = todayEntry
+          ? {
+              date: todayEntry.date,
+              prompt: todayEntry.prompt,
+              quote: todayEntry.quote,
+              author: todayEntry.author,
+              week: todayEntry.week,
+            }
+          : { message: "No entry found for today" };
+
+        // Available journals with progress
+        const journalCatalog = (guidedJournals as any[]).map((j: any) => ({
+          id: j.id,
+          title: j.title,
+          description: j.description,
+          promptCount: j.prompts?.length || 0,
+          sessionsCompleted: state.journalProgress?.[j.id] || 0,
+          timesFullyCompleted: Math.floor(
+            (state.journalProgress?.[j.id] || 0) / (j.prompts?.length || 1),
+          ),
+        }));
+
+        // Recent guided sessions (last 5)
+        const recentSessions = (state.guidedSessions || [])
+          .slice(-5)
+          .map((s: any) => {
+            const journal = (guidedJournals as any[]).find(
+              (j: any) => j.id === s.journalId,
+            );
+            return {
+              date: s.date,
+              journalTitle: journal?.title || s.journalId,
+              responseCount: s.responses?.length || 0,
+            };
+          });
+
+        return {
+          dailyStoic,
+          availableJournals: journalCatalog,
+          recentSessions,
+          totalSessionsEver: state.guidedSessions?.length || 0,
+        };
       }
 
       if (name === "logDailyCheckIn") {
