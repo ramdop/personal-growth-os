@@ -53,7 +53,7 @@ export const StoicEditor: React.FC<StoicEditorProps> = ({
   };
 
   return (
-    <div className="w-full max-w-xl animate-[fadeIn_1s_ease-out_forwards] mt-12 relative group">
+    <div className="w-full max-w-xl animate-fade-in mt-12 relative group">
       {/* Subtle Timer */}
       <div className="absolute -top-8 right-0 text-white/10 text-xs font-stoic tracking-widest pointer-events-none group-hover:text-white/20 transition-colors">
         {formatTime(elapsed)}

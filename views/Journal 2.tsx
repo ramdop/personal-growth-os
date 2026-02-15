@@ -239,10 +239,7 @@ export const Journal: React.FC<JournalProps> = ({ state, updateState }) => {
   if (view === "library") {
     return (
       <StoicLayout>
-        <div
-          key={view}
-          className="w-full max-w-4xl px-6 py-12 animate-[fadeIn_1s_ease-out_forwards]"
-        >
+        <div className="w-full max-w-4xl px-6 py-12">
           <header className="mb-12 text-center">
             <h1 className="text-4xl font-stoic text-white mb-2">Libellum</h1>
             <p className="text-white/40 font-stoic tracking-widest uppercase text-xs">
@@ -348,194 +345,50 @@ export const Journal: React.FC<JournalProps> = ({ state, updateState }) => {
 
     return (
       <StoicLayout>
-        <div
-          key={`${view}-${step}`}
-          className="w-full flex flex-col items-center animate-[fadeIn_1s_ease-out_forwards]"
-        >
-          {step !== "done" ? (
-            <div className="w-full max-w-2xl px-6">
-              <header className="mb-12 text-center opacity-40">
-                <button
-                  onClick={() => setView("library")}
-                  className="text-xs font-stoic tracking-widest uppercase hover:text-white transition-colors"
-                >
-                  ← Return to Library
-                </button>
-              </header>
-
-              <div className="mb-12">
-                <span className="text-[10px] font-stoic tracking-[0.3em] text-white/30 uppercase mb-4 block">
-                  {activeGuidedJournal.title} • PROMPT {activeGuidedStep + 1} OF{" "}
-                  {activeGuidedJournal.prompts.length}
-                </span>
-                <h2 className="text-2xl font-stoic text-white mb-8">
-                  {currentPrompt.question}
-                </h2>
-              </div>
-
-              <StoicEditor
-                key={currentPrompt.id}
-                onSave={(resp) => {
-                  saveGuidedSession(currentPrompt.id, resp);
-                }}
-                onFocus={() => setIsWriting(true)}
-                onBlur={() => setIsWriting(false)}
-              />
-
-              <div
-                className={`mt-12 transition-all duration-1000 ${
-                  isWriting ? "opacity-0 invisible" : "opacity-100 visible"
-                }`}
-              >
-                <h4 className="text-[10px] font-stoic tracking-[0.2em] text-white/40 uppercase mb-4">
-                  THE STOIC VIEW
-                </h4>
-                <p className="text-white/60 text-sm leading-relaxed italic border-l border-white/10 pl-6">
-                  {currentPrompt.guidance}
-                </p>
-              </div>
-
-              {currentPrompt.detailedGuidance && (
-                <div
-                  className={`w-full max-w-2xl mt-4 transition-all duration-1000 ${
-                    isWriting ? "opacity-5 grayscale blur-sm" : "opacity-100"
-                  }`}
-                >
-                  <button
-                    onClick={() => setShowGuidance(!showGuidance)}
-                    className="text-xs text-white/30 hover:text-white/60 tracking-widest uppercase mb-4 transition-colors w-full text-center"
-                  >
-                    {showGuidance ? "Hide Guidance" : "Show Guidance"}
-                  </button>
-                  <div
-                    className={`transition-all duration-1000 overflow-hidden ${
-                      showGuidance
-                        ? "max-h-[1000px] opacity-100 blur-none grayscale-0"
-                        : "max-h-0 opacity-0 blur-md grayscale"
-                    }`}
-                  >
-                    <div className="text-white/70 text-sm leading-relaxed font-sans bg-white/5 p-6 rounded-sm border-l-2 border-white/20">
-                      {currentPrompt.detailedGuidance
-                        .split("\n")
-                        .map((line, i) => {
-                          if (line.startsWith("##"))
-                            return (
-                              <h4
-                                key={i}
-                                className="font-serif text-white/90 text-lg mt-4 mb-2"
-                              >
-                                {line.replace("## ", "")}
-                              </h4>
-                            );
-                          if (line.match(/^\d+\./))
-                            return (
-                              <p
-                                key={i}
-                                className="mb-2 pl-4 border-l border-white/10"
-                              >
-                                {line}
-                              </p>
-                            );
-                          if (line.trim() === "")
-                            return <div key={i} className="h-2" />;
-                          return (
-                            <p key={i} className="mb-2">
-                              {line}
-                            </p>
-                          );
-                        })}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="animate-fade-in flex flex-col items-center w-full max-w-2xl px-6 text-center">
-              <img
-                src={`/assets/${mascot}.png`}
-                alt="Stoic Mascot"
-                className="w-48 h-48 mb-12 opacity-60"
-              />
-              <h2 className="text-3xl font-stoic text-white mb-6">
-                Journey Advanced
-              </h2>
-              <p className="text-white/40 font-stoic text-sm tracking-wide mb-12">
-                Building the inner citadel, brick by brick.
-              </p>
+        {step !== "done" ? (
+          <div className="w-full max-w-2xl px-6">
+            <header className="mb-12 text-center opacity-40">
               <button
                 onClick={() => setView("library")}
-                className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-sm transition-all text-xs tracking-[0.2em] font-stoic uppercase"
+                className="text-xs font-stoic tracking-widest uppercase hover:text-white transition-colors"
               >
-                Return Home
+                ← Return to Library
               </button>
-            </div>
-          )}
-        </div>
-      </StoicLayout>
-    );
-  }
+            </header>
 
-  // DAILY FLOW (Existing Logic wrapped)
-  return (
-    <StoicLayout>
-      <div
-        key={`${view}-${step}`}
-        className="w-full max-w-2xl flex flex-col items-center animate-[fadeIn_1s_ease-out_forwards]"
-      >
-        <div className="mb-8 w-full flex justify-center opacity-40">
-          <button
-            onClick={() => setView("library")}
-            className="text-xs font-stoic tracking-widest uppercase hover:text-white transition-colors"
-          >
-            ← Library
-          </button>
-        </div>
-        {step === "prompt" && (
-          <div
-            onClick={() => setStep("quote")}
-            className="cursor-pointer group text-center"
-          >
-            <span className="text-xs font-stoic tracking-widest text-white/40 uppercase mb-8 block animate-fade-in">
-              {entry.week}
-            </span>
-            <StoicCard type="prompt" content={entry.prompt} date={entry.date} />
-            <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              TAP TO REVEAL QUOTE
+            <div className="mb-12">
+              <span className="text-[10px] font-stoic tracking-[0.3em] text-white/30 uppercase mb-4 block">
+                {activeGuidedJournal.title} • PROMPT {activeGuidedStep + 1} OF{" "}
+                {activeGuidedJournal.prompts.length}
+              </span>
+              <h2 className="text-2xl font-stoic text-white mb-8">
+                {currentPrompt.question}
+              </h2>
             </div>
-          </div>
-        )}
 
-        {step === "quote" && (
-          <div
-            onClick={() => setStep("reflect")}
-            className="cursor-pointer group text-center"
-          >
-            <StoicCard
-              type="quote"
-              content={entry.quote}
-              author={entry.author || "Stoic Philosophy"}
-            />
-            <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              TAP TO REFLECT
-            </div>
-          </div>
-        )}
-
-        {step === "reflect" && (
-          <div className="w-full flex flex-col items-center">
-            <div
-              className={`mb-8 scale-90 transition-all duration-1000 ${
-                isWriting ? "opacity-5 grayscale blur-sm" : "opacity-60"
-              }`}
-            >
-              <StoicCard type="prompt" content={entry.prompt} />
-            </div>
             <StoicEditor
-              onSave={handleSave}
+              key={currentPrompt.id}
+              onSave={(resp) => {
+                saveGuidedSession(currentPrompt.id, resp);
+              }}
               onFocus={() => setIsWriting(true)}
               onBlur={() => setIsWriting(false)}
             />
-            {entry.guidance && (
+
+            <div
+              className={`mt-12 transition-all duration-1000 ${
+                isWriting ? "opacity-0 invisible" : "opacity-100 visible"
+              }`}
+            >
+              <h4 className="text-[10px] font-stoic tracking-[0.2em] text-white/40 uppercase mb-4">
+                THE STOIC VIEW
+              </h4>
+              <p className="text-white/60 text-sm leading-relaxed italic border-l border-white/10 pl-6">
+                {currentPrompt.guidance}
+              </p>
+            </div>
+
+            {currentPrompt.detailedGuidance && (
               <div
                 className={`w-full max-w-2xl mt-4 transition-all duration-1000 ${
                   isWriting ? "opacity-5 grayscale blur-sm" : "opacity-100"
@@ -555,66 +408,197 @@ export const Journal: React.FC<JournalProps> = ({ state, updateState }) => {
                   }`}
                 >
                   <div className="text-white/70 text-sm leading-relaxed font-sans bg-white/5 p-6 rounded-sm border-l-2 border-white/20">
-                    {entry.guidance.split("\n").map((line, i) => {
-                      if (line.startsWith("##"))
+                    {currentPrompt.detailedGuidance
+                      .split("\n")
+                      .map((line, i) => {
+                        if (line.startsWith("##"))
+                          return (
+                            <h4
+                              key={i}
+                              className="font-serif text-white/90 text-lg mt-4 mb-2"
+                            >
+                              {line.replace("## ", "")}
+                            </h4>
+                          );
+                        if (line.match(/^\d+\./))
+                          return (
+                            <p
+                              key={i}
+                              className="mb-2 pl-4 border-l border-white/10"
+                            >
+                              {line}
+                            </p>
+                          );
+                        if (line.trim() === "")
+                          return <div key={i} className="h-2" />;
                         return (
-                          <h4
-                            key={i}
-                            className="font-serif text-white/90 text-lg mt-4 mb-2"
-                          >
-                            {line.replace("## ", "")}
-                          </h4>
-                        );
-                      if (line.match(/^\d+\./))
-                        return (
-                          <p
-                            key={i}
-                            className="mb-2 pl-4 border-l border-white/10"
-                          >
+                          <p key={i} className="mb-2">
                             {line}
                           </p>
                         );
-                      if (line.trim() === "")
-                        return <div key={i} className="h-2" />;
-                      return (
-                        <p key={i} className="mb-2">
-                          {line}
-                        </p>
-                      );
-                    })}
+                      })}
                   </div>
                 </div>
               </div>
             )}
           </div>
-        )}
-
-        {step === "done" && (
+        ) : (
           <div className="animate-fade-in flex flex-col items-center w-full max-w-2xl px-6 text-center">
             <img
               src={`/assets/${mascot}.png`}
               alt="Stoic Mascot"
-              className="w-48 h-48 mb-6 opacity-60 hover:opacity-100 transition-opacity duration-1000"
+              className="w-48 h-48 mb-12 opacity-60"
             />
             <h2 className="text-3xl font-stoic text-white mb-6">
-              Reflection Recorded
+              Journey Advanced
             </h2>
-            <div className="text-white/80 font-stoic text-lg leading-relaxed text-center mb-8 italic bg-white/5 p-6 rounded-lg border border-white/10 w-full animate-fade-in-up">
-              "{recordedReflection}"
-            </div>
-            <p className="text-white/40 font-stoic text-sm tracking-wide mb-8">
-              You have strengthened your mind today.
+            <p className="text-white/40 font-stoic text-sm tracking-wide mb-12">
+              Building the inner citadel, brick by brick.
             </p>
-
             <button
-              onClick={() => setStep("prompt")}
-              className="text-white/40 hover:text-white text-xs tracking-widest uppercase transition-colors"
+              onClick={() => setView("library")}
+              className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-sm transition-all text-xs tracking-[0.2em] font-stoic uppercase"
             >
-              Review Again
+              Return Home
             </button>
           </div>
         )}
+      </StoicLayout>
+    );
+  }
+
+  // DAILY FLOW (Existing Logic wrapped)
+  return (
+    <StoicLayout>
+      <div className="mb-8 w-full flex justify-center opacity-40">
+        <button
+          onClick={() => setView("library")}
+          className="text-xs font-stoic tracking-widest uppercase hover:text-white transition-colors"
+        >
+          ← Library
+        </button>
       </div>
+      {step === "prompt" && (
+        <div onClick={() => setStep("quote")} className="cursor-pointer group">
+          <span className="text-xs font-stoic tracking-widest text-white/40 uppercase mb-8 block animate-fade-in">
+            {entry.week}
+          </span>
+          <StoicCard type="prompt" content={entry.prompt} date={entry.date} />
+          <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            TAP TO REVEAL QUOTE
+          </div>
+        </div>
+      )}
+
+      {step === "quote" && (
+        <div
+          onClick={() => setStep("reflect")}
+          className="cursor-pointer group"
+        >
+          <StoicCard
+            type="quote"
+            content={entry.quote}
+            author={entry.author || "Stoic Philosophy"}
+          />
+          <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            TAP TO REFLECT
+          </div>
+        </div>
+      )}
+
+      {step === "reflect" && (
+        <div className="w-full flex flex-col items-center">
+          <div
+            className={`mb-8 scale-90 transition-all duration-1000 ${
+              isWriting ? "opacity-5 grayscale blur-sm" : "opacity-60"
+            }`}
+          >
+            <StoicCard type="prompt" content={entry.prompt} />
+          </div>
+          <StoicEditor
+            onSave={handleSave}
+            onFocus={() => setIsWriting(true)}
+            onBlur={() => setIsWriting(false)}
+          />
+          {entry.guidance && (
+            <div
+              className={`w-full max-w-2xl mt-4 transition-all duration-1000 ${
+                isWriting ? "opacity-5 grayscale blur-sm" : "opacity-100"
+              }`}
+            >
+              <button
+                onClick={() => setShowGuidance(!showGuidance)}
+                className="text-xs text-white/30 hover:text-white/60 tracking-widest uppercase mb-4 transition-colors w-full text-center"
+              >
+                {showGuidance ? "Hide Guidance" : "Show Guidance"}
+              </button>
+              <div
+                className={`transition-all duration-1000 overflow-hidden ${
+                  showGuidance
+                    ? "max-h-[1000px] opacity-100 blur-none grayscale-0"
+                    : "max-h-0 opacity-0 blur-md grayscale"
+                }`}
+              >
+                <div className="text-white/70 text-sm leading-relaxed font-sans bg-white/5 p-6 rounded-sm border-l-2 border-white/20">
+                  {entry.guidance.split("\n").map((line, i) => {
+                    if (line.startsWith("##"))
+                      return (
+                        <h4
+                          key={i}
+                          className="font-serif text-white/90 text-lg mt-4 mb-2"
+                        >
+                          {line.replace("## ", "")}
+                        </h4>
+                      );
+                    if (line.match(/^\d+\./))
+                      return (
+                        <p
+                          key={i}
+                          className="mb-2 pl-4 border-l border-white/10"
+                        >
+                          {line}
+                        </p>
+                      );
+                    if (line.trim() === "")
+                      return <div key={i} className="h-2" />;
+                    return (
+                      <p key={i} className="mb-2">
+                        {line}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {step === "done" && (
+        <div className="animate-fade-in flex flex-col items-center w-full max-w-2xl px-6 text-center">
+          <img
+            src={`/assets/${mascot}.png`}
+            alt="Stoic Mascot"
+            className="w-48 h-48 mb-6 opacity-60 hover:opacity-100 transition-opacity duration-1000"
+          />
+          <h2 className="text-3xl font-stoic text-white mb-6">
+            Reflection Recorded
+          </h2>
+          <div className="text-white/80 font-stoic text-lg leading-relaxed text-center mb-8 italic bg-white/5 p-6 rounded-lg border border-white/10 w-full animate-fade-in-up">
+            "{recordedReflection}"
+          </div>
+          <p className="text-white/40 font-stoic text-sm tracking-wide mb-8">
+            You have strengthened your mind today.
+          </p>
+
+          <button
+            onClick={() => setStep("prompt")}
+            className="text-white/40 hover:text-white text-xs tracking-widest uppercase transition-colors"
+          >
+            Review Again
+          </button>
+        </div>
+      )}
     </StoicLayout>
   );
 };
