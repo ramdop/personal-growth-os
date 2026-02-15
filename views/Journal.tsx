@@ -470,135 +470,140 @@ export const Journal: React.FC<JournalProps> = ({ state, updateState }) => {
   // DAILY FLOW (Existing Logic wrapped)
   return (
     <StoicLayout>
-      <div className="mb-8 w-full flex justify-center opacity-40">
-        <button
-          onClick={() => setView("library")}
-          className="text-xs font-stoic tracking-widest uppercase hover:text-white transition-colors"
-        >
-          ← Library
-        </button>
-      </div>
-      {step === "prompt" && (
-        <div onClick={() => setStep("quote")} className="cursor-pointer group">
-          <span className="text-xs font-stoic tracking-widest text-white/40 uppercase mb-8 block animate-fade-in">
-            {entry.week}
-          </span>
-          <StoicCard type="prompt" content={entry.prompt} date={entry.date} />
-          <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            TAP TO REVEAL QUOTE
-          </div>
-        </div>
-      )}
-
-      {step === "quote" && (
-        <div
-          onClick={() => setStep("reflect")}
-          className="cursor-pointer group"
-        >
-          <StoicCard
-            type="quote"
-            content={entry.quote}
-            author={entry.author || "Stoic Philosophy"}
-          />
-          <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            TAP TO REFLECT
-          </div>
-        </div>
-      )}
-
-      {step === "reflect" && (
-        <div className="w-full flex flex-col items-center">
-          <div
-            className={`mb-8 scale-90 transition-all duration-1000 ${
-              isWriting ? "opacity-5 grayscale blur-sm" : "opacity-60"
-            }`}
+      <div className="w-full max-w-2xl flex flex-col items-center">
+        <div className="mb-8 w-full flex justify-center opacity-40">
+          <button
+            onClick={() => setView("library")}
+            className="text-xs font-stoic tracking-widest uppercase hover:text-white transition-colors"
           >
-            <StoicCard type="prompt" content={entry.prompt} />
+            ← Library
+          </button>
+        </div>
+        {step === "prompt" && (
+          <div
+            onClick={() => setStep("quote")}
+            className="cursor-pointer group text-center"
+          >
+            <span className="text-xs font-stoic tracking-widest text-white/40 uppercase mb-8 block animate-fade-in">
+              {entry.week}
+            </span>
+            <StoicCard type="prompt" content={entry.prompt} date={entry.date} />
+            <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              TAP TO REVEAL QUOTE
+            </div>
           </div>
-          <StoicEditor
-            onSave={handleSave}
-            onFocus={() => setIsWriting(true)}
-            onBlur={() => setIsWriting(false)}
-          />
-          {entry.guidance && (
+        )}
+
+        {step === "quote" && (
+          <div
+            onClick={() => setStep("reflect")}
+            className="cursor-pointer group text-center"
+          >
+            <StoicCard
+              type="quote"
+              content={entry.quote}
+              author={entry.author || "Stoic Philosophy"}
+            />
+            <div className="mt-12 text-white/20 text-sm font-stoic tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              TAP TO REFLECT
+            </div>
+          </div>
+        )}
+
+        {step === "reflect" && (
+          <div className="w-full flex flex-col items-center">
             <div
-              className={`w-full max-w-2xl mt-4 transition-all duration-1000 ${
-                isWriting ? "opacity-5 grayscale blur-sm" : "opacity-100"
+              className={`mb-8 scale-90 transition-all duration-1000 ${
+                isWriting ? "opacity-5 grayscale blur-sm" : "opacity-60"
               }`}
             >
-              <button
-                onClick={() => setShowGuidance(!showGuidance)}
-                className="text-xs text-white/30 hover:text-white/60 tracking-widest uppercase mb-4 transition-colors w-full text-center"
-              >
-                {showGuidance ? "Hide Guidance" : "Show Guidance"}
-              </button>
+              <StoicCard type="prompt" content={entry.prompt} />
+            </div>
+            <StoicEditor
+              onSave={handleSave}
+              onFocus={() => setIsWriting(true)}
+              onBlur={() => setIsWriting(false)}
+            />
+            {entry.guidance && (
               <div
-                className={`transition-all duration-1000 overflow-hidden ${
-                  showGuidance
-                    ? "max-h-[1000px] opacity-100 blur-none grayscale-0"
-                    : "max-h-0 opacity-0 blur-md grayscale"
+                className={`w-full max-w-2xl mt-4 transition-all duration-1000 ${
+                  isWriting ? "opacity-5 grayscale blur-sm" : "opacity-100"
                 }`}
               >
-                <div className="text-white/70 text-sm leading-relaxed font-sans bg-white/5 p-6 rounded-sm border-l-2 border-white/20">
-                  {entry.guidance.split("\n").map((line, i) => {
-                    if (line.startsWith("##"))
+                <button
+                  onClick={() => setShowGuidance(!showGuidance)}
+                  className="text-xs text-white/30 hover:text-white/60 tracking-widest uppercase mb-4 transition-colors w-full text-center"
+                >
+                  {showGuidance ? "Hide Guidance" : "Show Guidance"}
+                </button>
+                <div
+                  className={`transition-all duration-1000 overflow-hidden ${
+                    showGuidance
+                      ? "max-h-[1000px] opacity-100 blur-none grayscale-0"
+                      : "max-h-0 opacity-0 blur-md grayscale"
+                  }`}
+                >
+                  <div className="text-white/70 text-sm leading-relaxed font-sans bg-white/5 p-6 rounded-sm border-l-2 border-white/20">
+                    {entry.guidance.split("\n").map((line, i) => {
+                      if (line.startsWith("##"))
+                        return (
+                          <h4
+                            key={i}
+                            className="font-serif text-white/90 text-lg mt-4 mb-2"
+                          >
+                            {line.replace("## ", "")}
+                          </h4>
+                        );
+                      if (line.match(/^\d+\./))
+                        return (
+                          <p
+                            key={i}
+                            className="mb-2 pl-4 border-l border-white/10"
+                          >
+                            {line}
+                          </p>
+                        );
+                      if (line.trim() === "")
+                        return <div key={i} className="h-2" />;
                       return (
-                        <h4
-                          key={i}
-                          className="font-serif text-white/90 text-lg mt-4 mb-2"
-                        >
-                          {line.replace("## ", "")}
-                        </h4>
-                      );
-                    if (line.match(/^\d+\./))
-                      return (
-                        <p
-                          key={i}
-                          className="mb-2 pl-4 border-l border-white/10"
-                        >
+                        <p key={i} className="mb-2">
                           {line}
                         </p>
                       );
-                    if (line.trim() === "")
-                      return <div key={i} className="h-2" />;
-                    return (
-                      <p key={i} className="mb-2">
-                        {line}
-                      </p>
-                    );
-                  })}
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {step === "done" && (
-        <div className="animate-fade-in flex flex-col items-center w-full max-w-2xl px-6 text-center">
-          <img
-            src={`/assets/${mascot}.png`}
-            alt="Stoic Mascot"
-            className="w-48 h-48 mb-6 opacity-60 hover:opacity-100 transition-opacity duration-1000"
-          />
-          <h2 className="text-3xl font-stoic text-white mb-6">
-            Reflection Recorded
-          </h2>
-          <div className="text-white/80 font-stoic text-lg leading-relaxed text-center mb-8 italic bg-white/5 p-6 rounded-lg border border-white/10 w-full animate-fade-in-up">
-            "{recordedReflection}"
+            )}
           </div>
-          <p className="text-white/40 font-stoic text-sm tracking-wide mb-8">
-            You have strengthened your mind today.
-          </p>
+        )}
 
-          <button
-            onClick={() => setStep("prompt")}
-            className="text-white/40 hover:text-white text-xs tracking-widest uppercase transition-colors"
-          >
-            Review Again
-          </button>
-        </div>
-      )}
+        {step === "done" && (
+          <div className="animate-fade-in flex flex-col items-center w-full max-w-2xl px-6 text-center">
+            <img
+              src={`/assets/${mascot}.png`}
+              alt="Stoic Mascot"
+              className="w-48 h-48 mb-6 opacity-60 hover:opacity-100 transition-opacity duration-1000"
+            />
+            <h2 className="text-3xl font-stoic text-white mb-6">
+              Reflection Recorded
+            </h2>
+            <div className="text-white/80 font-stoic text-lg leading-relaxed text-center mb-8 italic bg-white/5 p-6 rounded-lg border border-white/10 w-full animate-fade-in-up">
+              "{recordedReflection}"
+            </div>
+            <p className="text-white/40 font-stoic text-sm tracking-wide mb-8">
+              You have strengthened your mind today.
+            </p>
+
+            <button
+              onClick={() => setStep("prompt")}
+              className="text-white/40 hover:text-white text-xs tracking-widest uppercase transition-colors"
+            >
+              Review Again
+            </button>
+          </div>
+        )}
+      </div>
     </StoicLayout>
   );
 };

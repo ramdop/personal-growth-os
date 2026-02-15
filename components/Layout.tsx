@@ -119,24 +119,37 @@ export const Layout: React.FC<LayoutProps> = ({
       </nav>
 
       {/* Main Content Area */}
-      <main className="md:ml-24 p-6 md:p-12 max-w-5xl mx-auto min-h-screen flex flex-col">
-        <header className="mb-8 md:mb-12 flex justify-between items-center">
-          <div className="glass-panel px-8 py-4 rounded-full">
-            <h2 className="text-xl md:text-2xl font-serif text-primary tracking-wide">
-              {currentView === "dashboard" && "Alignment Check"}
-              {currentView === "checkin" && "Daily Protocol"}
-              {currentView === "habits" && "Identity Stack"}
-              {currentView === "okrs" && "Objectives"}
-              {currentView === "review" && "Weekly Synthesis"}
-              {currentView === "insights" && "Earned Insights"}
-              {currentView === "journal" && "Stoic Reflection"}
-              {currentView === "settings" && "System Control"}
-            </h2>
-          </div>
-          <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent flex-1 ml-8 hidden md:block" />
-        </header>
+      <main
+        className={`md:ml-24 min-h-screen flex flex-col ${
+          currentView === "journal"
+            ? "p-0 max-w-none"
+            : "p-6 md:p-12 max-w-5xl mx-auto"
+        }`}
+      >
+        {currentView !== "journal" && (
+          <header className="mb-8 md:mb-12 flex justify-between items-center">
+            <div className="glass-panel px-8 py-4 rounded-full">
+              <h2 className="text-xl md:text-2xl font-serif text-primary tracking-wide">
+                {currentView === "dashboard" && "Alignment Check"}
+                {currentView === "checkin" && "Daily Protocol"}
+                {currentView === "habits" && "Identity Stack"}
+                {currentView === "okrs" && "Objectives"}
+                {currentView === "review" && "Weekly Synthesis"}
+                {currentView === "insights" && "Earned Insights"}
+                {currentView === "settings" && "System Control"}
+              </h2>
+            </div>
+            <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent flex-1 ml-8 hidden md:block" />
+          </header>
+        )}
 
-        <div className="flex-1 animate-fade-in">{children}</div>
+        <div
+          className={`flex-1 animate-fade-in ${
+            currentView === "journal" ? "h-full" : ""
+          }`}
+        >
+          {children}
+        </div>
       </main>
 
       {/* AI Companion Layer */}
